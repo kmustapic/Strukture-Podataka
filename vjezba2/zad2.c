@@ -21,7 +21,7 @@ int InsertAfter(Position position, Position newPerson);
 Position FindLast(Position head);
 int addFirst(Position head, char *FName, char *LName, int birthYear);
 int addLast(Position head, char *FName, char *LName, int birthYear);
-
+int PrintList(Position head);
 int main()
 {
 
@@ -32,12 +32,11 @@ int main()
     int BirthYear;
     int izbor;
 
-    Meni();
-    printf("Unesite broj koji zelite:\n");
 
     while (izbor != '6')
     {
-        printf("\n");
+        Meni();
+        printf("\nUnesite broj koji zelite:\n");
         scanf("%d", &izbor);
 
         switch (izbor)
@@ -67,7 +66,12 @@ int main()
             addLast(p, FName, LName, BirthYear);
             printf("\nOsoba uspjesno dodana na kraj liste.\n");
             break;
+            
+        case 3:
+                PrintList(p);
+                break;
         }
+
     }
 
     return EXIT_SUCCESS;
@@ -154,4 +158,19 @@ int addLast(Position head, char *FName, char *LName, int birthYear)
     InsertAfter(last, newPerson);
 
     return EXIT_SUCCESS;
+}
+
+int PrintList(Position head) {
+
+	Position q = head->next;
+
+	printf("| Ime             || Prezime             || Godina rodenja \n");
+	printf("-----------------------------------------------------------\n");
+	for (q = head->next; q != NULL; q = q->next) {
+
+		printf("| %-15s || %-19s || %d\n", q->FName, q->LName, q->birthYear);
+		
+	}
+
+	return EXIT_SUCCESS;
 }
