@@ -19,9 +19,10 @@ int Meni();
 Position CreatePerson(char *FName, char *LName, int birthYear);
 int InsertAfter(Position position, Position newPerson);
 Position FindLast(Position head);
-int addFirst(Position head, char *FName, char *LName, int birthYear);
-int addLast(Position head, char *FName, char *LName, int birthYear);
+int AddFirst(Position head, char *FName, char *LName, int birthYear);
+int AddLast(Position head, char *FName, char *LName, int birthYear);
 int PrintList(Position head);
+
 int main()
 {
 
@@ -30,16 +31,16 @@ int main()
     char FName[MAX_SIZE];
     char LName[MAX_SIZE];
     int BirthYear;
-    int izbor;
+    int choice;
 
 
-    while (izbor != '6')
+    while (choice != '6')
     {
         Meni();
         printf("\nUnesite broj koji zelite:\n");
-        scanf("%d", &izbor);
+        scanf("%d", &choice);
 
-        switch (izbor)
+        switch (choice)
         {
         case 1:
             printf("Vrsi se unos osobe na pocetak liste.");
@@ -50,8 +51,8 @@ int main()
             printf("\nUnesite godinu rodenja studenta.\n");
             scanf("%d", &BirthYear);
 
-            addFirst(p, FName, LName, BirthYear);
-            printf("\nOsoba uspjesno dodan na pocetak liste.\n");
+            AddFirst(p, FName, LName, BirthYear);
+            printf("\nOsoba uspjesno dodana na pocetak liste.\n");
             break;
 
         case 2:
@@ -63,7 +64,7 @@ int main()
             printf("\nUnesite godinu rodenja studenta.\n");
             scanf("%d", &BirthYear);
 
-            addLast(p, FName, LName, BirthYear);
+            AddLast(p, FName, LName, BirthYear);
             printf("\nOsoba uspjesno dodana na kraj liste.\n");
             break;
             
@@ -125,7 +126,7 @@ Position FindLast(Position head)
     }
     return temp;
 }
-int addFirst(Position head, char *FName, char *LName, int birthYear)
+int AddFirst(Position head, char *FName, char *LName, int birthYear)
 {
 
     Position newPerson = NULL;
@@ -142,7 +143,7 @@ int addFirst(Position head, char *FName, char *LName, int birthYear)
     return EXIT_SUCCESS;
 }
 
-int addLast(Position head, char *FName, char *LName, int birthYear)
+int AddLast(Position head, char *FName, char *LName, int birthYear)
 {
 
     Position newPerson = NULL;
