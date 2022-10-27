@@ -31,16 +31,29 @@ int PrintStudents(StudentP students, int rowsNum, double maxScore);
 
 int main()
 {
-    int rowsNum = CountRows("./students.txt");
+    char fileName[] = { 0 };
+    printf("Please enter file name you want to open: ");
+    scanf("%s", fileName);
+    while (fileName == "" || fopen(fileName, "r") == NULL)
+    {
+        system("cls");
+        printf("_________________________________________________________________\n");
+        printf("Entered file name is not valid. Please enter new file name: ");
+        scanf("%s", fileName);
+        printf("_________________________________________________________________\n");
+    }
+
+    int rowsNum = CountRows(fileName);
     if (rowsNum <= 0)
     {
         printf("Empty file\n");
         return EXIT_FAILURE;
     }
     StudentP students = NULL;
-    students = ReadStudentsFile("./students.txt", rowsNum);
+    students = ReadStudentsFile(fileName, rowsNum);
     double maxScore = FindMaxScore(students, rowsNum);
     PrintStudents(students, rowsNum, maxScore);
+    system("pause");
     free(students);
 
     return EXIT_SUCCESS;
@@ -52,11 +65,6 @@ int CountRows(char fileName[])
     char buffer[MAX_LINE];
     FILE* fp = NULL;
     fp = fopen(fileName, "r");
-    if (fp == NULL)
-    {
-        printf("Unable to open file.");
-        return EXIT_FAILURE;
-    }
     while (!feof(fp))
     {
         fgets(buffer, MAX_LINE, fp);
@@ -70,7 +78,7 @@ int CountRows(char fileName[])
 
 StudentP ReadStudentsFile(char fileName[], int rowsNum)
 {
-    int status = 0;
+    int status = 0, i;
     FILE* fp = NULL;
     StudentP students = NULL;
     fp = fopen(fileName, "r");
@@ -81,7 +89,7 @@ StudentP ReadStudentsFile(char fileName[], int rowsNum)
     }
     students = (StudentP)malloc(rowsNum * sizeof(Student));
 
-    for (int i = 0; i < rowsNum; i++)
+    for (i = 0; i < rowsNum; i++)
     status = fscanf(fp, "%s %s %lf", students[i].name, students[i].surname, &students[i].score);
     if (status != 3)
     {
@@ -95,8 +103,9 @@ StudentP ReadStudentsFile(char fileName[], int rowsNum)
 
 double FindMaxScore(StudentP students, int rowsNum)
 {
+    int i;
     double max = 0;
-    for (int i = 0; i < rowsNum; i++)
+    for (i = 0; i < rowsNum; i++)
         if (!CompareDoubleNum(students[i].score, max))
             if (students[i].score > max)
                 max = students[i].score;
@@ -114,11 +123,12 @@ int CompareDoubleNum(double a, double b)
 
 int PrintStudents(StudentP students, int rowsNum, double maxScore)
 {
+    int i;
     printf("NAME\t SURNAME\t ABSOLUTE SCORE\t RELATIVE SCORE\n");
     printf("__________________________________________________________________\n");
     double relativeScore;
 
-    for (int i = 0; i < rowsNum; i++)
+    for (i = 0; i < rowsNum; i++)
     {
         relativeScore = students[i].score / maxScore * 100;
         printf("%s\t %s\t\t %.2lf\t\t %.2lf\n", students[i].name, students[i].surname, students[i].score, relativeScore);
