@@ -21,6 +21,7 @@ typedef struct _student
     char name[MAX_NAME];
     char surname[MAX_NAME];
     double score;
+    StudentP next;
 } Student;
 
 int CountRows(char fileName[]);
@@ -28,6 +29,7 @@ StudentP ReadStudentsFile(char fileName[], int rowsNum);
 double FindMaxScore(StudentP students, int rowsNum);
 int CompareDoubleNum(double a, double b);
 int PrintStudents(StudentP students, int rowsNum, double maxScore);
+int DeleteList(StudentP head);
 
 int main()
 {
@@ -53,8 +55,10 @@ int main()
     students = ReadStudentsFile(fileName, rowsNum);
     double maxScore = FindMaxScore(students, rowsNum);
     PrintStudents(students, rowsNum, maxScore);
+    DeleteList(students);
+    if(students->next == NULL)
+         printf("\nList is successfully deleted!\n\n");
     system("pause");
-    free(students);
 
     return EXIT_SUCCESS;
 }
@@ -135,4 +139,19 @@ int PrintStudents(StudentP students, int rowsNum, double maxScore)
     }
 
     return EXIT_SUCCESS;
+}
+
+int DeleteList(StudentP head)
+{
+     StudentP current = head;
+     StudentP next = NULL;
+     while(current != NULL)
+     {
+         next = current->next;
+         free(current);
+         current = next;
+     }
+     head = NULL;
+     
+     return EXIT_SUCCESS;
 }
