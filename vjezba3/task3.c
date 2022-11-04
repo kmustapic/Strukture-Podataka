@@ -49,19 +49,20 @@ int DeleteAfter(PersonP head, char *lastName);
 int PrintList(PersonP head);
 int DeleteList(PersonP head);
 // 3rd Task
-int InsertAfterCertainEl(PersonP head, PersonP newPerson, char* findLastName);
-int InsertBeforeCertainEl(PersonP head, PersonP newPerson, char* findLastName);
+int InsertAfterCertainEl(PersonP head, PersonP newPerson, char *findLastName);
+int InsertBeforeCertainEl(PersonP head, PersonP newPerson, char *findLastName);
 int SortList(PersonP head);
 int WriteInFile(PersonP head, char *fileName);
+int ReadListFromFile(PersonP head, char *fileName);
 char *EnterFileName();
 
 int main()
 {
-    Person head = { .firstName = {0}, .lastName = {0}, .birthYear = 0, .next = NULL };
+    Person head = {.firstName = {0}, .lastName = {0}, .birthYear = 0, .next = NULL};
     PersonP p = &head;
-    char firstName[MAX_SIZE] = { 0 };
-    char lastName[MAX_SIZE] = { 0 };
-    char searchLastName[MAX_SIZE] = { 0 };
+    char firstName[MAX_SIZE] = {0};
+    char lastName[MAX_SIZE] = {0};
+    char searchLastName[MAX_SIZE] = {0};
     int birthYear = 0;
     int choice = -1;
     int flag;
@@ -81,8 +82,7 @@ int main()
             printf(
                 "=================================================================\n"
                 "You chose to add new person to the beginning of list.\n\n"
-                "Please enter person's first name: "
-            );
+                "Please enter person's first name: ");
             scanf(" %s", firstName);
             EnterValidString(firstName, "first name");
             printf("Please enter person's last name: ");
@@ -102,8 +102,7 @@ int main()
             printf(
                 "=================================================================\n"
                 "You chose to add new person to the end of list.\n\n"
-                "Please enter person's first name: "
-            );
+                "Please enter person's first name: ");
             scanf(" %s", firstName);
             EnterValidString(firstName, "first name");
             printf("Please enter person's last name: ");
@@ -123,8 +122,7 @@ int main()
             printf(
                 "=================================================================\n"
                 "You chose to search for a person by their last name.\n\n"
-                "Please enter person's last name: "
-            );
+                "Please enter person's last name: ");
             scanf(" %s", lastName);
             EnterValidString(lastName, "last name");
             FindByLastName(p, lastName);
@@ -138,8 +136,7 @@ int main()
             printf(
                 "=================================================================\n"
                 "You chose to delete existing person.\n\n"
-                "Please enter person's last name: "
-            );
+                "Please enter person's last name: ");
             scanf(" %s", lastName);
             EnterValidString(lastName, "last name");
             DeleteAfter(p, lastName);
@@ -164,8 +161,7 @@ int main()
             printf(
                 "=================================================================\n"
                 "You chose to insert new person after certain person (by surname).\n\n"
-                "Enter last name of person in the list, after who you want to add new person: "
-            );
+                "Enter last name of person in the list, after who you want to add new person: ");
             scanf(" %s", searchLastName);
             EnterValidString(searchLastName, "searched last name");
 
@@ -183,15 +179,13 @@ int main()
                 printf(
                     "\nPerson is succesfully added after certain person in the list!\n\n"
                     "\nPress enter to continue app execution.\n"
-                    "=================================================================\n"
-                );
+                    "=================================================================\n");
             else
                 printf(
                     "\nPerson with searched last name doesn't exist in the list!\n"
                     "Please choose another option.\n\n"
                     "Press enter to continue app execution.\n"
-                    "=================================================================\n"
-                );
+                    "=================================================================\n");
             system("pause");
             break;
 
@@ -199,8 +193,7 @@ int main()
             printf(
                 "=================================================================\n"
                 "You chose to insert new person before certain person (by surname).\n\n"
-                "Enter last name of person in the list, before who you want to add new person: "
-            );
+                "Enter last name of person in the list, before who you want to add new person: ");
             scanf(" %s", searchLastName);
             EnterValidString(searchLastName, "searched last name");
 
@@ -218,15 +211,13 @@ int main()
                 printf(
                     "\nPerson is succesfully added after certain person in the list!\n\n"
                     "\nPress enter to continue app execution.\n"
-                    "=================================================================\n"
-                );
+                    "=================================================================\n");
             else
                 printf(
                     "\nPerson with searched last name doesn't exist in the list!\n"
                     "Please choose another option.\n\n"
                     "Press enter to continue app execution.\n"
-                    "=================================================================\n"
-                );
+                    "=================================================================\n");
             system("pause");
             break;
         case 8:
@@ -253,323 +244,360 @@ int main()
                    "=================================================================\n");
             system("pause");
             break;
+        case 10:
+            printf(
+                "=================================================================\n"
+                "You chose to read the list of people from the file:\n\n");
+            fileName = EnterFileName();
+            ReadListFromFile(p, fileName);
+            printf(
+                "\nList has been sucesfully read from the file : %s\n\n", fileName);
+            printf("\nPress enter to continue app execution.\n"
+                   "=================================================================\n");
+            system("pause");
+            break;
+            system("cls");
+            printf(
+                "=================================================================\n"
+                "\nYou have exited the application!\n\n"
+                "=================================================================\n");
+            DeleteList(p);
+            if (p->next == NULL)
+                printf("\nList is successfully deleted!\n\n");
+            system("pause");
+
+            return EXIT_SUCCESS;
         }
     }
-    system("cls");
-    printf(
-        "=================================================================\n"
-        "\nYou have exited the application!\n\n"
-        "=================================================================\n"
-    );
-    DeleteList(p);
-    if (p->next == NULL)
-        printf("\nList is successfully deleted!\n\n");
-    system("pause");
-
-    return EXIT_SUCCESS;
 }
 
-int PrintMenu()
-{
-    printf(
-        "=================================================================\n"
-        "\t\t\tMENU\n"
-        "=================================================================\n"
-        "    1 - Add new person to the beginning of list\n"
-        "    2 - Add new person to the end of list\n"
-        "    3 - Find person (search by last name)\n"
-        "    4 - Delete certain person\n"
-        "    5 - Print current person list\n"
-        "    6 - Insert new person after certain person (by surname)\n"
-        "    7 - Insert new person before certain person (by surname)\n"
-        "    8 - Sort the list of people (by surname)\n"
-        "    9 - Insert the list in the file\n"
-        "    10 -Read the list from the file\n "
-        "    0 - Exit application\n"
-        "=================================================================\n");
-
-    return EXIT_SUCCESS;
-}
-
-int EnterValidString(char *string, char *variableName)
-{
-    if (strcmp(string, "") != 0)
-        return EXIT_FAILURE;
-    else
+    int PrintMenu()
     {
-        scanf("%s", string);
-        while (strcmp(string, "") == 0)
+        printf(
+            "=================================================================\n"
+            "\t\t\tMENU\n"
+            "=================================================================\n"
+            "    1 - Add new person to the beginning of list\n"
+            "    2 - Add new person to the end of list\n"
+            "    3 - Find person (search by last name)\n"
+            "    4 - Delete certain person\n"
+            "    5 - Print current person list\n"
+            "    6 - Insert new person after certain person (by surname)\n"
+            "    7 - Insert new person before certain person (by surname)\n"
+            "    8 - Sort the list of people (by surname)\n"
+            "    9 - Insert the list in the file\n"
+            "    10 -Read the list from the file\n "
+            "    0 - Exit application\n"
+            "=================================================================\n");
+
+        return EXIT_SUCCESS;
+    }
+
+    int EnterValidString(char *string, char *variableName)
+    {
+        if (strcmp(string, "") != 0)
+            return EXIT_FAILURE;
+        else
         {
-            printf(
-                "You entered an empty string!\n"
-                "Please enter new %s: ",
-                variableName);
             scanf("%s", string);
+            while (strcmp(string, "") == 0)
+            {
+                printf(
+                    "You entered an empty string!\n"
+                    "Please enter new %s: ",
+                    variableName);
+                scanf("%s", string);
+            }
+
+            return EXIT_SUCCESS;
+        }
+    }
+
+    int AddFirst(PersonP head, char *firstName, char *lastName, int birthYear)
+    {
+        PersonP newPerson = NULL;
+        newPerson = CreatePerson(firstName, lastName, birthYear);
+        if (!newPerson)
+        {
+            printf("Memory not allocated!\n");
+            return EXIT_FAILURE;
+        }
+        InsertAfter(head, newPerson);
+
+        return EXIT_SUCCESS;
+    }
+
+    PersonP CreatePerson(char *firstName, char *lastName, int birthYear)
+    {
+        PersonP newPerson = NULL;
+        newPerson = (PersonP)malloc(sizeof(Person));
+
+        if (!newPerson)
+        {
+            printf("Memory not allocated!\n");
+            return NULL;
+        }
+        strcpy(newPerson->firstName, firstName);
+        strcpy(newPerson->lastName, lastName);
+        newPerson->birthYear = birthYear;
+        newPerson->next = NULL;
+
+        return newPerson;
+    }
+
+    int InsertAfter(PersonP position, PersonP newPerson)
+    {
+        newPerson->next = position->next;
+        position->next = newPerson;
+
+        return EXIT_SUCCESS;
+    }
+
+    int AddLast(PersonP head, char *firstName, char *lastName, int birthYear)
+    {
+        PersonP newPerson = NULL;
+        PersonP last = NULL;
+        newPerson = CreatePerson(firstName, lastName, birthYear);
+        if (!newPerson)
+        {
+            printf("Memory not allocated!\n");
+            return EXIT_FAILURE;
+        }
+        last = FindLast(head);
+        InsertAfter(last, newPerson);
+
+        return EXIT_SUCCESS;
+    }
+
+    PersonP FindLast(PersonP head)
+    {
+        PersonP temp = head;
+        while (temp->next)
+        {
+            temp = temp->next;
+        }
+        return temp;
+    }
+
+    int FindByLastName(PersonP first, char *lastName)
+    {
+        int flag = 0;
+        PersonP temp = NULL;
+        for (temp = first->next; temp != NULL; temp = temp->next)
+        {
+            if (strcmp(temp->lastName, lastName) == 0)
+            {
+                flag++;
+                if (flag == 1)
+                    printf("\nPerson/s with searched last name is/are:\n");
+
+                printf("FIRST NAME: %s, LAST NAME: %s, BIRTH YEAR: %d\n", temp->firstName, temp->lastName, temp->birthYear);
+            }
+        }
+        if (flag == 0)
+            printf("\nPerson with searched last name currently doesn't exist in the list!\n");
+
+        return EXIT_SUCCESS;
+    }
+
+    int DeleteAfter(PersonP head, char *lastName)
+    {
+        int flag = 0;
+        PersonP prev = NULL;
+        PersonP current = NULL;
+
+        for (prev = head; prev->next != NULL; prev = prev->next)
+        {
+            if (strcmp(prev->next->lastName, lastName) == 0)
+            {
+                flag++;
+                current = prev->next;
+                prev->next = prev->next->next;
+                free(current);
+                break;
+            }
+        }
+
+        if (flag == 0)
+            printf("\nPerson with searched last name doesn't exist in current person list!\n");
+        else
+            printf("\nPerson is succesfully deleted from person list!\n");
+
+        return EXIT_SUCCESS;
+    }
+
+    int PrintList(PersonP head)
+    {
+        PersonP q = head->next;
+        printf("| First name          || Last name          || Birth year \n");
+        printf("-----------------------------------------------------------\n");
+        for (q = head->next; q != NULL; q = q->next)
+            printf("| %-20s || %-20s || %d\n", q->firstName, q->lastName, q->birthYear);
+
+        return EXIT_SUCCESS;
+    }
+
+    int DeleteList(PersonP head)
+    {
+        PersonP temp = NULL;
+        while (head->next != NULL)
+        {
+            temp = head->next;
+            head->next = temp->next;
+            free(temp);
         }
 
         return EXIT_SUCCESS;
     }
-}
 
-int AddFirst(PersonP head, char *firstName, char *lastName, int birthYear)
-{
-    PersonP newPerson = NULL;
-    newPerson = CreatePerson(firstName, lastName, birthYear);
-    if (!newPerson)
+    int InsertAfterCertainEl(PersonP head, PersonP newPerson, char *findLastName)
     {
-        printf("Memory not allocated!\n");
-        return EXIT_FAILURE;
-    }
-    InsertAfter(head, newPerson);
-
-    return EXIT_SUCCESS;
-}
-
-PersonP CreatePerson(char *firstName, char *lastName, int birthYear)
-{
-    PersonP newPerson = NULL;
-    newPerson = (PersonP)malloc(sizeof(Person));
-
-    if (!newPerson)
-    {
-        printf("Memory not allocated!\n");
-        return NULL;
-    }
-    strcpy(newPerson->firstName, firstName);
-    strcpy(newPerson->lastName, lastName);
-    newPerson->birthYear = birthYear;
-    newPerson->next = NULL;
-
-    return newPerson;
-}
-
-int InsertAfter(PersonP position, PersonP newPerson)
-{
-    newPerson->next = position->next;
-    position->next = newPerson;
-
-    return EXIT_SUCCESS;
-}
-
-int AddLast(PersonP head, char *firstName, char *lastName, int birthYear)
-{
-    PersonP newPerson = NULL;
-    PersonP last = NULL;
-    newPerson = CreatePerson(firstName, lastName, birthYear);
-    if (!newPerson)
-    {
-        printf("Memory not allocated!\n");
-        return EXIT_FAILURE;
-    }
-    last = FindLast(head);
-    InsertAfter(last, newPerson);
-
-    return EXIT_SUCCESS;
-}
-
-PersonP FindLast(PersonP head)
-{
-    PersonP temp = head;
-    while (temp->next)
-    {
-        temp = temp->next;
-    }
-    return temp;
-}
-
-int FindByLastName(PersonP first, char *lastName)
-{
-    int flag = 0;
-    PersonP temp = NULL;
-    for (temp = first->next; temp != NULL; temp = temp->next)
-    {
-        if (strcmp(temp->lastName, lastName) == 0)
+        int flag = 0;
+        PersonP temp = NULL;
+        temp = head;
+        while (temp->next != NULL)
         {
-            flag++;
-            if (flag == 1)
-                printf("\nPerson/s with searched last name is/are:\n");
-
-            printf("FIRST NAME: %s, LAST NAME: %s, BIRTH YEAR: %d\n", temp->firstName, temp->lastName, temp->birthYear);
-        }
-    }
-    if (flag == 0)
-        printf("\nPerson with searched last name currently doesn't exist in the list!\n");
-
-    return EXIT_SUCCESS;
-}
-
-int DeleteAfter(PersonP head, char *lastName)
-{
-    int flag = 0;
-    PersonP prev = NULL;
-    PersonP current = NULL;
-
-    for (prev = head; prev->next != NULL; prev = prev->next)
-    {
-        if (strcmp(prev->next->lastName, lastName) == 0)
-        {
-            flag++;
-            current = prev->next;
-            prev->next = prev->next->next;
-            free(current);
-            break;
-        }
-    }
-
-    if (flag == 0)
-        printf("\nPerson with searched last name doesn't exist in current person list!\n");
-    else
-        printf("\nPerson is succesfully deleted from person list!\n");
-
-    return EXIT_SUCCESS;
-}
-
-int PrintList(PersonP head)
-{
-    PersonP q = head->next;
-    printf("| First name          || Last name          || Birth year \n");
-    printf("-----------------------------------------------------------\n");
-    for (q = head->next; q != NULL; q = q->next)
-        printf("| %-20s || %-20s || %d\n", q->firstName, q->lastName, q->birthYear);
-
-    return EXIT_SUCCESS;
-}
-
-int DeleteList(PersonP head)
-{
-    PersonP temp = NULL;
-    while (head->next != NULL)
-    {
-        temp = head->next;
-        head->next = temp->next;
-        free(temp);
-    }
-
-    return EXIT_SUCCESS;
-}
-
-int InsertAfterCertainEl(PersonP head, PersonP newPerson, char* findLastName)
-{
-    int flag = 0;
-    PersonP temp = NULL;
-    temp = head;
-    while (temp->next != NULL)
-    {
-        if (strcmp(temp->lastName, findLastName) == 0)
-        {
-            flag++;
-            InsertAfter(temp, newPerson);
-        }
-        temp = temp->next;
-    }
-    if (flag == 0)
-        return EXIT_FAILURE;
-
-    return EXIT_SUCCESS;
-}
-
-int InsertBeforeCertainEl(PersonP head, PersonP newPerson, char *findLastName)
-{
-    int flag = 0;
-    PersonP temp = NULL;
-    temp = head;
-    while (temp->next != NULL)
-    {
-        if (strcmp(temp->next->lastName, findLastName) == 0)
-        {
-            flag++;
-            InsertAfter(temp, newPerson);
-        }
-        temp = temp->next;
-    }
-    if (flag == 0)
-        return EXIT_FAILURE;
-
-    return EXIT_SUCCESS;
-}
-
-int SortList(PersonP p)
-{
-    PersonP a = NULL, b = NULL, prev = NULL, end = NULL;
-    for (a = p; a->next != end;)
-    {
-        prev = a;
-        for (b = a->next; b->next != end; b = b->next)
-        {
-            if (strcmp(b->lastName, b->next->lastName) > 0)
+            if (strcmp(temp->lastName, findLastName) == 0)
             {
-                PersonP pom = b->next;
-                prev->next = pom;
-                b->next = pom->next;
-                pom->next = b;
-                b = pom;
+                flag++;
+                InsertAfter(temp, newPerson);
             }
-            prev = b;
+            temp = temp->next;
         }
-        end = b;
+        if (flag == 0)
+            return EXIT_FAILURE;
+
+        return EXIT_SUCCESS;
     }
-}
 
-char *EnterFileName()
-{
-    char *fileName = NULL;
-    fileName = malloc(sizeof(char) * 20);
-    printf("\nInsert the name of the file you want to add the list to:\n");
-    scanf(" %s", fileName);
-    return fileName;
-}
-
-int WriteInFile(PersonP head, char *fileName)
-{
-
-    FILE *file = NULL;
-    file = fopen(fileName, "w");
-
-    PersonP temp = head->next;
-
-    if (NULL == file)
+    int InsertBeforeCertainEl(PersonP head, PersonP newPerson, char *findLastName)
     {
-        printf("Unable to open file.");
-        return -1;
+        int flag = 0;
+        PersonP temp = NULL;
+        temp = head;
+        while (temp->next != NULL)
+        {
+            if (strcmp(temp->next->lastName, findLastName) == 0)
+            {
+                flag++;
+                InsertAfter(temp, newPerson);
+            }
+            temp = temp->next;
+        }
+        if (flag == 0)
+            return EXIT_FAILURE;
+
+        return EXIT_SUCCESS;
     }
 
-    while (temp)
+    int SortList(PersonP p)
     {
-        fprintf(file, "NAME: %s, SURNAME: %s, BIRTHYEAR: %d\n", temp->firstName, temp->lastName, temp->birthYear);
-        temp = temp->next;
+        PersonP a = NULL, b = NULL, prev = NULL, end = NULL;
+        for (a = p; a->next != end;)
+        {
+            prev = a;
+            for (b = a->next; b->next != end; b = b->next)
+            {
+                if (strcmp(b->lastName, b->next->lastName) > 0)
+                {
+                    PersonP pom = b->next;
+                    prev->next = pom;
+                    b->next = pom->next;
+                    pom->next = b;
+                    b = pom;
+                }
+                prev = b;
+            }
+            end = b;
+        }
     }
 
-    fclose(file);
-    return EXIT_SUCCESS;
-}
+    char *EnterFileName()
+    {
+        char *fileName = NULL;
+        fileName = malloc(sizeof(char) * 20);
+        printf("\nInsert the name of the file:\n");
+        scanf(" %s", fileName);
+        return fileName;
+    }
 
+    int WriteInFile(PersonP head, char *fileName)
+    {
 
-/*
-    FURTHER IMPROVEMENT:
-    * In case when we want to delete certain person (list element),
-      it is not precisely defined how to distinguish which element to delete
-      if we have people with same first and last name,
-      currently it deletes 1st person found with searched last name
+        FILE *file = NULL;
+        file = fopen(fileName, "w");
 
-   -> possible solutions:
-      1) add new int variable 'id' in struct, and search person we want delete
-         by it's unique id.
+        PersonP temp = head->next;
 
-      2) (Probably wasn't intended to work this way)
-         To delete all existing people in current list
-         with searched last name.
-    _____________________________________________________________________________
-    * compiler version issue, warnings for not assigning scanf's return value
+        if (NULL == file)
+        {
+            printf("Unable to open file.");
+            return -1;
+        }
 
-    -> possible solutions:
-       1) define these commands:
+        while (temp)
+        {
+            fprintf(file, "%s %s %d\n", temp->firstName, temp->lastName, temp->birthYear);
+            temp = temp->next;
+        }
 
-            #define _CRT_SECURE_NO_DEPRECATE
-            #define _CRT_NONSTDC_NO_DEPRECATE
-    _____________________________________________________________________________
-    * increasing code readability
+        fclose(file);
+        return EXIT_SUCCESS;
+    }
 
-    -> possible solutions:
-       1) inside switch case, put each case in it's own function code block
-    _____________________________________________________________________________
-*/
+    int ReadListFromFile(PersonP head, char *fileName)
+    {
+        char name[MAX_SIZE] = {0};
+        char surname[MAX_SIZE] = {0};
+        int birthYear = 0;
+
+        PersonP p = head;
+
+        FILE *file = NULL;
+        file = fopen(fileName, "r");
+
+        if (NULL == file)
+        {
+            printf("Unable to open file.");
+            return -1;
+        }
+
+        while (!feof(file))
+        {
+            fscanf(file, "%s %s %d", name, surname, &birthYear);
+            AddLast(p, name, surname, birthYear);
+        }
+
+        fclose(file);
+        return EXIT_SUCCESS;
+    }
+
+    /*
+        FURTHER IMPROVEMENT:
+        * In case when we want to delete certain person (list element),
+          it is not precisely defined how to distinguish which element to delete
+          if we have people with same first and last name,
+          currently it deletes 1st person found with searched last name
+
+       -> possible solutions:
+          1) add new int variable 'id' in struct, and search person we want delete
+             by it's unique id.
+
+          2) (Probably wasn't intended to work this way)
+             To delete all existing people in current list
+             with searched last name.
+        _____________________________________________________________________________
+        * compiler version issue, warnings for not assigning scanf's return value
+
+        -> possible solutions:
+           1) define these commands:
+
+                #define _CRT_SECURE_NO_DEPRECATE
+                #define _CRT_NONSTDC_NO_DEPRECATE
+        _____________________________________________________________________________
+        * increasing code readability
+
+        -> possible solutions:
+           1) inside switch case, put each case in it's own function code block
+        _____________________________________________________________________________
+    */
