@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <windows.h>
+//#include <windows.h>
 //#include <unistd.h>
 #define MAX_SIZE (50)
 
@@ -40,11 +40,12 @@ PersonP FindLast(PersonP head);
 int FindByLastName(PersonP first, char* lastName);
 int DeleteAfter(PersonP head, char* lastName);
 int PrintList(PersonP head);
+int DeleteList(PersonP head);
 
 int main()
 {
-    Person Head = { .next = NULL, .firstName = {0}, .lastName = {0}, .birthYear = 0 };
-    PersonP p = &Head;
+    Person head = { .firstName = {0}, .lastName = {0}, .birthYear = 0, .next = NULL };
+    PersonP p = &head;
     char firstName[MAX_SIZE] = { 0 };
     char lastName[MAX_SIZE] = { 0 };
     int birthYear = 0;
@@ -55,26 +56,26 @@ int main()
         system("cls");
         PrintMenu();
         printf("Choose an option from menu: ");
-        scanf("%d", &choice);
+        scanf(" %d", &choice);
 
         switch (choice)
         {
         case 1:
             printf (
                 "=================================================================\n"
-                "You chose to add new student to the beginning of list\n\n"
-                "Please enter student's first name: "
+                "You chose to add new person to the beginning of list.\n\n"
+                "Please enter person's first name: "
             );
             scanf(" %s", firstName);
             EnterValidString(firstName, "first name");
-            printf("Please enter student's last name: ");
+            printf("Please enter person's last name: ");
             scanf(" %s", lastName);
             EnterValidString(lastName, "last name");
-            printf("Please enter student's birth year: ");
-            scanf("%d", &birthYear);
+            printf("Please enter person's birth year: ");
+            scanf(" %d", &birthYear);
             AddFirst(p, firstName, lastName, birthYear);
             printf(
-                "\nStudent is succesfully added to the beginning of list!\n\n"
+                "\nNew person is successfully added to the beginning of list!\n\n"
                 "Press enter to continue app execution.\n"
                 "=================================================================\n"
             );
@@ -84,19 +85,19 @@ int main()
         case 2:
             printf(
                 "=================================================================\n"
-                "You chose to add new student to the end of list\n\n"
-                "Please enter student's first name: "
+                "You chose to add new person to the end of list.\n\n"
+                "Please enter person's first name: "
             );
             scanf(" %s", firstName);
             EnterValidString(firstName, "first name");
-            printf("Please enter student's last name: ");
+            printf("Please enter person's last name: ");
             scanf(" %s", lastName);
             EnterValidString(lastName, "last name");
-            printf("Please eneter student's birth year: ");
-            scanf("%d", &birthYear);
+            printf("Please enter person's birth year: ");
+            scanf(" %d", &birthYear);
             AddLast(p, firstName, lastName, birthYear);
             printf(
-                "\nStudent is succesfully added to the end of list!\n\n"
+                "\nPerson is successfully added to the end of list!\n\n"
                 "Press enter to continue app execution.\n"
                 "=================================================================\n"
             );
@@ -106,8 +107,8 @@ int main()
         case 3:
             printf(
                 "=================================================================\n"
-                "You chose to search for a student by their last name\n\n"
-                "Please enter student's last name: "
+                "You chose to search for a person by their last name.\n\n"
+                "Please enter person's last name: "
             );
             scanf(" %s", lastName);
             EnterValidString(lastName, "last name");
@@ -122,8 +123,8 @@ int main()
         case 4:
             printf(
                 "=================================================================\n"
-                "You chose to delete existing student\n\n"
-                "Please enter student's last name: "
+                "You chose to delete existing person.\n\n"
+                "Please enter person's last name: "
             );
             scanf(" %s", lastName);
             EnterValidString(lastName, "last name");
@@ -134,11 +135,11 @@ int main()
             );
             system("pause");
             break;
-        
+       
         case 5:
             printf(
                 "=================================================================\n"
-                "You chose to print current student list:\n\n"
+                "You chose to print current person list:\n\n"
             );
             PrintList(p);
             printf(
@@ -155,6 +156,9 @@ int main()
         "\nYou have exited the application!\n\n"
         "=================================================================\n"
     );
+    DeleteList(p);
+    if(p->next == NULL)
+         printf("\nList is successfully deleted!\n\n");
     system("pause");
 
     return EXIT_SUCCESS;
@@ -166,11 +170,11 @@ int PrintMenu()
            "=================================================================\n"
            "\t\t\tMENU\n"
            "=================================================================\n"
-           "    1 - Add new element to the beginning of list\n"
-           "    2 - Add new element to the end of list\n"
-           "    3 - Find list element (search by last name)\n"
-           "    4 - Delete certain list element\n"
-           "    5 - Print current list\n"
+           "    1 - Add new person to the beginning of list\n"
+           "    2 - Add new person to the end of list\n"
+           "    3 - Find person (search by last name)\n"
+           "    4 - Delete certain person\n"
+           "    5 - Print current person list\n"
            "    0 - Exit application\n"
            "=================================================================\n"
           );
@@ -181,7 +185,7 @@ int PrintMenu()
 int EnterValidString(char* string, char* variableName)
 {
     if (strcmp(string, "") != 0)
-        return EXIT_SUCCESS;
+        return EXIT_FAILURE;
     else
     {
         scanf("%s", string);
@@ -192,7 +196,7 @@ int EnterValidString(char* string, char* variableName)
                     "Please enter new %s: ", variableName
         );
         scanf("%s", string);
-    }
+        }
 
     return EXIT_SUCCESS;
     }
@@ -274,13 +278,13 @@ int FindByLastName(PersonP first, char* lastName)
         {
             flag++;
             if(flag == 1)
-            printf("\nStudent/s with searched last name is/are:\n");
+            printf("\nPerson/s with searched last name is/are:\n");
 
             printf("FIRST NAME: %s, LAST NAME: %s, BIRTH YEAR: %d\n", temp->firstName, temp->lastName, temp->birthYear);
         }
     }
     if (flag == 0)
-        printf("\nStudent with searched last name currently doesn't exist in the list!\n");
+        printf("\nPerson with searched last name currently doesn't exist in the list!\n");
 
     return EXIT_SUCCESS;
 }
@@ -302,52 +306,71 @@ int DeleteAfter(PersonP head, char* lastName)
             break;
         }
     }
-    
+   
     if (flag == 0)
-        printf("\nStudent with searched last name doesn't exist in current student list!\n");
+        printf("\nPerson with searched last name doesn't exist in current person list!\n");
     else
-        printf("\nStudent is succesfully deleted from student list!\n");
+        printf("\nPerson is succesfully deleted from person list!\n");
 
     return EXIT_SUCCESS;
 }
 
-int PrintList(PersonP head) 
+int PrintList(PersonP head)
 {
     PersonP q = head->next;
     printf("| First name          || Last name          || Birth year \n");
     printf("-----------------------------------------------------------\n");
-    for (q = head->next; q != NULL; q = q->next) 
+    for (q = head->next; q != NULL; q = q->next)
         printf("| %-20s || %-20s || %d\n", q->firstName, q->lastName, q->birthYear);
 
     return EXIT_SUCCESS;
 }
 
+int DeleteList(PersonP head)
+{
+     PersonP temp = NULL;
+     while(head->next != NULL)
+     {
+         temp = head->next;
+         head->next = temp->next;
+         free(temp);
+     }
+     
+     return EXIT_SUCCESS;
+}
+
 /*
     FURTHER IMPROVEMENT:
-
-    * In case when we want to delete certain student (list element), 
+    * In case when we want to delete certain person (list element),
       it is not precisely defined how to distinguish which element to delete
-      if we have students with same first and last name,
+      if we have people with same first and last name,
       currently it deletes 1st person found with searched last name
    
    -> possible solutions:
-      1) add new int variable 'id' in struct, and earch student we want delete
+      1) add new int variable 'id' in struct, and search person we want delete
          by it's unique id.
-      
+     
       2) (Probably wasn't intended to work this way)
-         To delete all existing students in current list 
+         To delete all existing people in current list
          with searched last name.
     _____________________________________________________________________________
-    * compiler version issue, warnings for not assigning printf's return value
-    
+    * compiler version issue, warnings for not assigning scanf's return value
+   
     -> possible solutions:
        1) define these commands:
-    
+   
             #define _CRT_SECURE_NO_DEPRECATE  
             #define _CRT_NONSTDC_NO_DEPRECATE
     _____________________________________________________________________________
     * increasing code readability
-    
+   
     -> possible solutions:
-       1) inside switch case, put each case in it's own function code block 
+       1) inside switch case, put each case in it's own function code block
+    _____________________________________________________________________________
+    * code issue: modifying DeleteList function
+    
+    Code for DeleteList function, same as in prev 1st task not
+    working, unless changing order of code lines ( funcion free() ).
+    Code works successfully when function DeleteList modified.
+    -> Issue needs to be resolved. 
 */
