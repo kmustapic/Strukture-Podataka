@@ -1,5 +1,5 @@
 /*
-4. Napisati program za zbrajanje i mnozenje polinoma. 
+4. Napisati program za zbrajanje i mnozenje polinoma.
 Koeficijenti i eksponenti se citaju iz datoteke.
 Napomena: Eksponenti u datoteci nisu nuzno sortirani.
 */
@@ -16,7 +16,7 @@ Napomena: Eksponenti u datoteci nisu nuzno sortirani.
 #include <windows.h>
 
 struct _polynomial;
-typedef struct _polynomial* PolynomialP;
+typedef struct _polynomial *PolynomialP;
 typedef struct _polynomial
 {
     int coeff;
@@ -24,38 +24,32 @@ typedef struct _polynomial
     PolynomialP next;
 } Polynomial;
 
-int EnterValidString(char* string, char* variableName);
+int EnterValidString(char *string, char *variableName);
 int PrintMenu();
-char* EnterFileName();
-int ReadFile(PolynomialP head1, PolynomialP head2, char* fileName);
-int ReadLine(PolynomialP head, char* buffer);
+char *EnterFileName();
+int ReadFile(PolynomialP head1, PolynomialP head2, char *fileName);
+int ReadLine(PolynomialP head, char *buffer);
 PolynomialP CreatePolynomial(int coeff, int exp);
 int InsertSorted(PolynomialP head, PolynomialP newPolynomial);
 int DeleteResultZero(PolynomialP head);
 int InsertAfter(PolynomialP position, PolynomialP newPolynomial);
 int PrintList(PolynomialP head);
+int Sum(PolynomialP p1, PolynomialP p2, PolynomialP sum);
+int Multiply(PolynomialP p1, PolynomialP p2, PolynomialP product);
 
 //****************************
-
-
-
-
-
-
-
-
 int main()
 {
-    Polynomial head1 = { .exp = 0, .coeff = 0, .next = NULL };
-    Polynomial head2 = { .exp = 0, .coeff = 0, .next = NULL };
-    Polynomial headSum = { .exp = 0, .coeff = 0, .next = NULL };
-    Polynomial headProduct = { .exp = 0, .coeff = 0, .next = NULL };
+    Polynomial head1 = {.exp = 0, .coeff = 0, .next = NULL};
+    Polynomial head2 = {.exp = 0, .coeff = 0, .next = NULL};
+    Polynomial headSum = {.exp = 0, .coeff = 0, .next = NULL};
+    Polynomial headProduct = {.exp = 0, .coeff = 0, .next = NULL};
     PolynomialP p1 = &head1;
     PolynomialP p2 = &head2;
     PolynomialP pSum = &headSum;
     PolynomialP pProduct = &headProduct;
 
-    char* fileName = NULL;
+    char *fileName = NULL;
     int choice = -1;
     int flag = 0;
     while (choice != 0)
@@ -63,17 +57,14 @@ int main()
         system("cls");
         PrintMenu();
         fileName = EnterFileName();
-        //while(fileName == NULL)
+        // while(fileName == NULL)
         flag = ReadFile(p1, p2, fileName);
-
-
 
         if (flag == EXIT_SUCCESS)
             printf("\nList has been sucesfully read from the file : %s\n\n", fileName);
 
-
         printf("\nPress enter to continue app execution.\n"
-            "=================================================================\n");
+               "=================================================================\n");
 
         /*
         printf("Please eneter file name: ");
@@ -86,7 +77,7 @@ int main()
         scanf(" %d", &choice);
         */
 
-//system("color F");
+        // system("color F");
 
         switch (choice)
         {
@@ -121,7 +112,7 @@ int PrintMenu()
     return EXIT_SUCCESS;
 }
 
-int EnterValidString(char* string, char* variableName)
+int EnterValidString(char *string, char *variableName)
 {
     if (strcmp(string, "") != 0)
         return EXIT_SUCCESS;
@@ -141,9 +132,9 @@ int EnterValidString(char* string, char* variableName)
     }
 }
 
-char* EnterFileName()
+char *EnterFileName()
 {
-    char* fileName = NULL;
+    char *fileName = NULL;
     fileName = malloc(sizeof(char) * 20);
     printf("\nEnter the name of the file with polynomials: \n\t");
     scanf(" %s", fileName);
@@ -152,12 +143,12 @@ char* EnterFileName()
     return fileName;
 }
 
-int ReadFile(PolynomialP head1, PolynomialP head2, char* fileName)
+int ReadFile(PolynomialP head1, PolynomialP head2, char *fileName)
 {
     int coeff = 0;
     int exp = 0;
-    char buffer[MAX_SIZE] = { 0 };
-    FILE* fp = NULL;
+    char buffer[MAX_SIZE] = {0};
+    FILE *fp = NULL;
     fp = fopen(fileName, "r");
 
     if (fp == NULL)
@@ -181,21 +172,21 @@ int ReadFile(PolynomialP head1, PolynomialP head2, char* fileName)
     return EXIT_SUCCESS;
 }
 
-int ReadLine(PolynomialP head, char* buffer)
+int ReadLine(PolynomialP head, char *buffer)
 {
     int coeff = 0;
     int exp = 0;
-    char* p = NULL;   
-    int status = 0; 
-    int n = 0;        
+    char *p = NULL;
+    int status = 0;
+    int n = 0;
     PolynomialP newPoly = NULL;
 
     p = buffer;
-    while (strlen(p) > 0) 
+    while (strlen(p) > 0)
     {
         status = sscanf(p, " %d %d %n", &coeff, &exp, &n);
         if (status == 2 && coeff != 0)
-        { 
+        {
             newPoly = CreatePolynomial(coeff, exp);
             InsertSorted(head, newPoly);
         }
@@ -235,7 +226,7 @@ int InsertSorted(PolynomialP head, PolynomialP newPolynomial)
         result = current->coeff;
 
         if (result == 0)
-            DeleteResultZero(current); 
+            DeleteResultZero(current);
     }
     else
     {
@@ -301,6 +292,81 @@ int PrintList(PolynomialP head)
         printf("\t%dx^(%d)\n", temp->coeff, temp->exp);
         temp = temp->next;
     }
+    return EXIT_SUCCESS;
+}
+
+int Sum(PolynomialP p1,PolynomialP p2,PolynomialP sum) {
+
+    int k,e;
+    PolynomialP newPolynomial=NULL;
+
+    while (p1 != NULL && p2 != NULL)
+    {
+        if (p1->exp == p2->exp)
+        {
+            e = p1->exp;           // eksponent sume
+            k = p1->coeff + p2->coeff; // koeficijent sume
+            newPolynomial=CreatePolynomial(k,e);
+            InsertSorted(sum,newPolynomial);
+            p1 = p1->next;
+            p2 = p2->next;
+        }
+        else if (p1->exp > p2->exp)
+        {
+            e = p1->exp;
+            k = p1->coeff;
+            newPolynomial=CreatePolynomial(k,e);
+            InsertSorted(sum,newPolynomial);
+            p1 = p1->next;
+        }
+        else if (p2->exp > p1->exp)
+        {
+            e = p2->exp;
+            k = p2->coeff;
+            newPolynomial=CreatePolynomial(k,e);
+            InsertSorted(sum,newPolynomial);
+            p2 = p2->next;
+        }
+    }
+     while (p1 != NULL)
+    {
+        if (p1 != NULL)
+        {
+            InsertSorted(sum,p1);
+            p1 = p1->next;
+        }
+    }
+    if (p2 != NULL)
+    {
+        while (p2 != NULL)
+        {
+            InsertSorted(sum,p2);
+            p2 = p2->next;
+        }
+    }
+    return EXIT_SUCCESS;
+}
+
+int Multiply(PolynomialP p1, PolynomialP p2, PolynomialP product) {
+
+    PolynomialP temp = p2;
+    PolynomialP newPolynomial = NULL;
+    int k, e;
+    while (p1 != NULL)
+    {
+        p2 = temp;
+        while (p2 != NULL)
+        {
+
+            k = p1->coeff * p2->coeff;
+            e = p1->exp + p2->exp;
+            newPolynomial=CreatePolynomial(k,e);
+            InsertSorted(product,newPolynomial);
+            p2 = p2->next;
+        }
+        p1 = p1->next;
+    }
+
     return EXIT_SUCCESS;
 }
 //*******************
