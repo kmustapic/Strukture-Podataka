@@ -1,0 +1,11 @@
+﻿  article.c
+  bill.c
+  date.c
+  filter.c
+C:\Users\Korisnik\Desktop\SP\vjezba6\vjezba6\filter.c(8,11): warning C4013: 'memset' undefined; assuming extern returning int
+C:\Users\Korisnik\Desktop\SP\vjezba6\vjezba6\filter.c(36,11): warning C4013: 'strcpy' undefined; assuming extern returning int
+  main.c
+  Generating Code...
+C:\Users\Korisnik\Desktop\SP\vjezba6\vjezba6\main.c(89): warning C4716: 'searchArticleInRange': must return a value
+C:\Users\Korisnik\Desktop\SP\vjezba6\vjezba6\bill.c(163): warning C4715: 'DeleteBill': not all control paths return a value
+  vjezba6.vcxproj -> C:\Users\Korisnik\Desktop\SP\vjezba6\Debug\vjezba6.exe
