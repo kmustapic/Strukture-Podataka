@@ -20,18 +20,16 @@ ArticleP CreateArticleFromString(char* str) {
     int status = 0;
 
     if (!str) {
-        printf("String passed as null to create article!\r\n");
+        printf("String passed as null to create article!\n");
         return NULL;
     }
 
     article = (ArticleP)malloc(sizeof(Article));
     if (!article) {
-        perror("Article allocation failed!");
+        perror("Article allocation failed!\n");
         return NULL;
     }
-
     InitializeArticle(article);
-
     status = sscanf(str, "%s %d %f",
         &article->name,
         &article->count,
@@ -39,7 +37,7 @@ ArticleP CreateArticleFromString(char* str) {
     );
 
     if (status != 3) {
-        printf("Invalid article \"%s\", should be in format - <name> <count> <price>!\r\n", str);
+        printf("Invalid article \"%s\", should be in format - <name> <count> <price>!\n", str);
         free(article);
         return NULL;
     }
@@ -52,13 +50,12 @@ int ArticleToString(char* destination, ArticleP article) {
         printf("Destination string is null!\r\n");
         return STRING_DESTINATION_NULL;
     }
-
     if (!article) {
         sprintf(destination, "##INVALID ARTICLE");
         return STRING_NOT_VALID;
     }
-
     sprintf(destination, "%s %d %.02f", article->name, article->count, article->price);
+
     return EXIT_SUCCESS;
 }
 
@@ -74,11 +71,9 @@ int PrintArticle(ArticleP article) {
 ArticleP FindArticleByName(ArticleP head, char* name) {
     ArticleP article = NULL;
 
-    for (article = head; article != NULL; article = article->next) {
-        if (strcmp(article->name, name) == 0) {
+    for (article = head; article != NULL; article = article->next)
+        if (strcmp(article->name, name) == 0)
             return article;
-        }
-    }
 
     return NULL;
 }
@@ -86,9 +81,8 @@ ArticleP FindArticleByName(ArticleP head, char* name) {
 int DeleteArticleAfter(ArticleP position) {
     ArticleP toDelete = position->next;
 
-    if (!toDelete) {
+    if (!toDelete)
         return EXIT_SUCCESS;
-    }
 
     position->next = toDelete->next;
     free(toDelete);
@@ -97,9 +91,8 @@ int DeleteArticleAfter(ArticleP position) {
 }
 
 int DeleteAllArticles(ArticleP head) {
-    while (head->next) {
+    while (head->next)
         DeleteArticleAfter(head);
-    }
 
     return EXIT_SUCCESS;
 }
@@ -114,9 +107,8 @@ int InsertArticleAfter(ArticleP position, ArticleP article) {
 int InsertArticleSorted(ArticleP head, ArticleP article) {
     ArticleP position = head;
 
-    while (position->next != NULL && strcmp(position->next->name, article->name) < 0) {
+    while (position->next != NULL && strcmp(position->next->name, article->name) < 0)
         position = position->next;
-    }
 
     InsertArticleAfter(position, article);
 

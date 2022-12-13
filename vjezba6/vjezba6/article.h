@@ -22,4 +22,5 @@ int DeleteArticleAfter(ArticleP position);
 int DeleteAllArticles(ArticleP head);
 int InsertArticleAfter(ArticleP position, ArticleP article);
 int InsertArticleSorted(ArticleP head, ArticleP article);
+
 #endif

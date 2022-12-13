@@ -11,6 +11,7 @@ int InitializeBill(BillP bill) {
     bill->next = NULL;
     memset(bill->name, 0, MAX_BILL_NAME);
     InitializeArticle(&bill->articleHead);
+
     return EXIT_SUCCESS;
 }
 
@@ -22,13 +23,13 @@ BillP CreateBill(char* billFileName) {
 
     fp = fopen(billFileName, "r");
     if (!fp) {
-        perror("Bill not opened!");
+        perror("Bill not opened!\n");
         return NULL;
     }
 
     bill = (BillP)malloc(sizeof(Bill));
     if (!bill) {
-        perror("Bill not allocated!");
+        perror("Bill not allocated!\n");
         fclose(fp);
         return NULL;
     }
@@ -49,20 +50,18 @@ BillP CreateBill(char* billFileName) {
         ArticleP article = NULL;
         fgets(fileLine, MAX_LINE, fp);
 
-        if (strlen(fileLine) == 0) {
+        if (strlen(fileLine) == 0)
             continue;
-        }
 
         article = CreateArticleFromString(fileLine);
         if (!article) {
             fclose(fp);
             DeleteBill(bill);
+
             return NULL;
         }
-
         InsertArticleSorted(&bill->articleHead, article);
     }
-
     fclose(fp);
 
     return bill;
@@ -77,16 +76,13 @@ int InsertBillAfter(BillP position, BillP bill) {
 
 int InsertBillSorted(BillP head, BillP bill) {
     BillP position = head;
-
-    while (position->next != NULL && Datecmp(position->next->date, bill->date) < 0) {
+    while (position->next != NULL && Datecmp(position->next->date, bill->date) < 0)
         position = position->next;
-    }
 
     InsertBillAfter(position, bill);
 
     return EXIT_SUCCESS;
 }
-
 
 int ReadBillsFromFile(BillP head, char* fileName) {
     FILE* fp = NULL;
@@ -94,7 +90,7 @@ int ReadBillsFromFile(BillP head, char* fileName) {
 
     fp = fopen(fileName, "r");
     if (!fp) {
-        perror("File with bills not opened!");
+        perror("File with bills not opened!\n");
         return FILE_WITH_BILLS_NOT_OPENED;
     }
 
@@ -102,9 +98,8 @@ int ReadBillsFromFile(BillP head, char* fileName) {
         BillP bill = NULL;
         fscanf(fp, "%s", fileLine);
 
-        if (strlen(fileLine) == 0) {
+        if (strlen(fileLine) == 0)
             continue;
-        }
 
         bill = CreateBill(fileLine);
         if (!bill) {
@@ -112,10 +107,8 @@ int ReadBillsFromFile(BillP head, char* fileName) {
             DeleteAllBills(head);
             return CREATE_BILL_FAILED;
         }
-
         InsertBillSorted(head, bill);
     }
-
     fclose(fp);
 
     return EXIT_SUCCESS;
@@ -141,22 +134,18 @@ int PrintBill(BillP bill) {
 
 int PrintAllBills(BillP head) {
     BillP bill = NULL;
-
-    for (bill = head->next; bill != NULL; bill = bill->next) {
+    for (bill = head->next; bill != NULL; bill = bill->next)
         PrintBill(bill);
-    }
 
     return EXIT_SUCCESS;
 }
 
 int DeleteBill(BillP bill) {
-    if (!bill) {
+    if (!bill)
         return EXIT_SUCCESS;
-    }
 
-    if (bill->date) {
+    if (bill->date)
         free(bill->date);
-    }
 
     DeleteAllArticles(&bill->articleHead);
     free(bill);
@@ -164,10 +153,8 @@ int DeleteBill(BillP bill) {
 
 int DeleteBillAfter(BillP position) {
     BillP toDelete = position->next;
-
-    if (!toDelete) {
+    if (!toDelete)
         return EXIT_SUCCESS;
-    }
 
     position->next = toDelete->next;
     DeleteBill(toDelete);
@@ -176,9 +163,8 @@ int DeleteBillAfter(BillP position) {
 }
 
 int DeleteAllBills(BillP head) {
-    while (head->next) {
+    while (head->next)
         DeleteBillAfter(head);
-    }
 
     return EXIT_SUCCESS;
 }
