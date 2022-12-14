@@ -23,7 +23,7 @@ BillP CreateBill(char* billFileName) {
 
     fp = fopen(billFileName, "r");
     if (!fp) {
-        perror("Bill not opened!\n");
+        perror("\tBill not opened!\n");
         return NULL;
     }
 

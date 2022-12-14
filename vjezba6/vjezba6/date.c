@@ -8,17 +8,15 @@ DateP CreateDateFromString(char* str) {
     int status = 0;
 
     if (!str) {
-        printf("String passed as null to create date!\r\n");
+        printf("String passed as NULL to create date!\n");
         return NULL;
     }
 
     date = (DateP)malloc(sizeof(Date));
-
     if (!date) {
-        perror("Date allocation failed!");
+        perror("Date allocation failed!\n");
         return NULL;
     }
-
     status = sscanf(str, "%d-%d-%d",
         &date->year,
         &date->month,
@@ -26,7 +24,7 @@ DateP CreateDateFromString(char* str) {
     );
 
     if (status != 3) {
-        printf("Invalid date \"%s\", should be in format YYYY-MM-DD!\r\n", str);
+        printf("Invalid date \"%s\", should be in format YYYY-MM-DD!\n", str);
         free(date);
         return NULL;
     }
@@ -36,7 +34,7 @@ DateP CreateDateFromString(char* str) {
 
 int DateToString(char* destination, DateP date) {
     if (!destination) {
-        printf("Destination string is null!\r\n");
+        printf("Destination string is null!\n");
         return STRING_DESTINATION_NULL;
     }
 
@@ -44,8 +42,8 @@ int DateToString(char* destination, DateP date) {
         sprintf(destination, "-");
         return EXIT_SUCCESS;
     }
-
     sprintf(destination, "%04d-%02d-%02d", date->year, date->month, date->day);
+
     return EXIT_SUCCESS;
 }
 
@@ -64,9 +62,8 @@ int Datecmp(DateP date1, DateP date2) {
     if (result == 0) {
         result = date1->month - date2->month;
 
-        if (result == 0) {
+        if (result == 0)
             result = date1->day - date2->day;
-        }
     }
 
     return result;
