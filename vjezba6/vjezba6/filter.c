@@ -15,10 +15,9 @@ FilterP CreateFilter(char* dateFromStr, char* dateToStr, char* articleName) {
 
     filter = (FilterP)malloc(sizeof(Filter));
     if (!filter) {
-        perror("Filter not allocated!");
+        perror("Filter not allocated!\ n");
         return NULL;
     }
-
     InitializeFilter(filter);
 
     filter->from = CreateDateFromString(dateFromStr);
@@ -32,20 +31,17 @@ FilterP CreateFilter(char* dateFromStr, char* dateToStr, char* articleName) {
         DeleteFilter(filter);
         return NULL;
     }
-
     strcpy(filter->name, articleName);
 
     return filter;
 }
 
 int DeleteFilter(FilterP filter) {
-    if (filter->from) {
+    if (filter->from)
         free(filter->from);
-    }
 
-    if (filter->to) {
+    if (filter->to)
         free(filter->to);
-    }
 
     free(filter);
 
