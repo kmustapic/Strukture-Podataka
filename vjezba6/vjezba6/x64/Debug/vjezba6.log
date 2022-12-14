@@ -1,3 +1,4 @@
-﻿  main.c
-C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba6\vjezba6\main.c(198): warning C4716: 'SearchArticleInRange': must return a value
-  vjezba6.vcxproj -> C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba6\x64\Debug\vjezba6.exe
+﻿  bill.c
+C:\Users\Korisnik\Desktop\5 semestar\Strukture-Podataka\vjezba6\vjezba6\bill.c(181,66): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Korisnik\Desktop\5 semestar\Strukture-Podataka\vjezba6\vjezba6\bill.c(153): warning C4715: 'DeleteBill': not all control paths return a value
+  vjezba6.vcxproj -> C:\Users\Korisnik\Desktop\5 semestar\Strukture-Podataka\vjezba6\x64\Debug\vjezba6.exe

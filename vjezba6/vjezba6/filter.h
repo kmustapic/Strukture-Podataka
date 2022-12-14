@@ -2,6 +2,7 @@
 #define FILTER_H
 #include "date.h"
 #include "article.h"
+#include "bill.h"
 
 struct _filter;
 typedef struct _filter* FilterP;

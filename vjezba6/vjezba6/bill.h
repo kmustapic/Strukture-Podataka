@@ -13,6 +13,7 @@ typedef struct _bill {
     DateP date;
     Article articleHead;
     BillP next;
+    int total;
 } Bill;
 
 int InitializeBill(BillP bill);
@@ -25,5 +26,8 @@ int PrintAllBills(BillP head);
 int DeleteBill(BillP bill);
 int DeleteBillAfter(BillP position);
 int DeleteAllBills(BillP head);
+int CalculateTotalBill(BillP bill);
+BillP FindLowestProfitOfAll(BillP head);
+BillP FindHighestProfitOfAll(BillP head);
 
 #endif

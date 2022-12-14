@@ -9,6 +9,7 @@
 int InitializeBill(BillP bill) {
     bill->date = NULL;
     bill->next = NULL;
+    bill->total = 0;
     memset(bill->name, 0, MAX_BILL_NAME);
     InitializeArticle(&bill->articleHead);
 
@@ -167,4 +168,56 @@ int DeleteAllBills(BillP head) {
         DeleteBillAfter(head);
 
     return EXIT_SUCCESS;
+}
+
+int CalculateTotalBill(BillP bill)
+{
+    ArticleP article = NULL;
+    bill->total = 0;
+
+        article = &bill->articleHead;
+        for (article = article->next; article != NULL; article = article->next)
+        {
+            bill->total += (float)article->price * article->count;
+        }
+       // print("%f", sumPrice);
+    return bill->total;
+}
+
+BillP FindLowestProfitOfAll(BillP head) {
+    
+    head = head->next;
+    BillP lowest = head;
+    int min = INT_MAX;
+    int total = 0;
+
+    for (; head->next != NULL; head = head->next) {
+        total=CalculateTotalBill(head);
+        if (total < min) {
+            min = total;
+            lowest = head;
+        }
+    }
+    printf("%d", lowest->total);
+
+    return lowest;
+}
+
+BillP FindHighestProfitOfAll(BillP head) {
+
+    head = head->next;
+    BillP highest = NULL;
+    int max = INT_MIN;
+    int total = 0;
+
+    for (; head->next != NULL; head = head->next) {
+        total = CalculateTotalBill(head);
+        if (total > max) {
+            max = total;
+            highest = head;
+        }
+    }
+    printf("%d", highest->total);
+
+    return highest;
 }

@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
                 " in valid format: <year>-<month>-<day>: ");
             scanf(" %s", enterString);
             printf(
-                "====================================================================\n"
+                "====================================================================\n");
 //*********************************************
 
 //*********************************************
@@ -129,15 +129,25 @@ int main(int argc, char* argv[]) {
 
         case 7:
             // Iva
-            printf("====================================================================\n");
-            printf("7");
+            printf(
+                "====================================================================\n"
+                "\n You chose to print receipt info with lowest total profit\n\n");
+            BillP lowest = NULL;
+            lowest=FindLowestProfitOfAll(&head);
+            printf("............%s\n", lowest->name);
+            PrintBill(lowest);
             system("pause");
             break;
 
         case 8:
             // Iva
-            printf("====================================================================\n");
-            printf("8");
+            printf(
+                "====================================================================\n"
+                "\n You chose to print receipt info with highest total profit\n\n");
+            BillP highest = NULL;
+            highest=FindHighestProfitOfAll(&head);
+            printf("............%s\n", highest->name);
+            //PrintBill(highest);
             system("pause");
             break;
 
@@ -151,8 +161,6 @@ int main(int argc, char* argv[]) {
             system("pause");
         }
     }
-
-
 //*********************************************
 
 //    PrintAllBills(&head);
@@ -231,8 +239,8 @@ int PrintMenu()
         "\t4  -  Modify data for certain existing receipt\n"
         "\t5  -  Print name list of existing receipts\n"
         "\t6  -  Print all receipts info that contain certain product\n"
-        "\t7  -  Print receipt info with highest total profit\n"
-        "\t8  -  Print receipt info with lowest total profit\n"
+        "\t7  -  Print receipt info with lowest total profit\n"
+        "\t8  -  Print receipt info with highest total profit\n"
         "\t0  -  Exit application\n"
         "\n====================================================================\n");
 
