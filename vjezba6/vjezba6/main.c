@@ -107,23 +107,26 @@ int main(int argc, char* argv[]) {
             break;
 
         case 4:
-            // Iva
+            // Kike
             printf("====================================================================\n");
             printf("4");
             system("pause");
             break;
 
         case 5:
-            // Kike
-            printf("====================================================================\n");
-            printf("5");
+            // Iva
+            printf(
+                "====================================================================\n"
+                "\n You chose to print name list of existing receipts\n\n");
+            PrintNameOfAllBills(&head);
             system("pause");
             break;
 
         case 6:
             // Iva
-            printf("====================================================================\n");
-            printf("6");
+            printf(
+                "====================================================================\n"
+                "\n You chose to print all receipts info that contain certain product\n\n");
             system("pause");
             break;
 
@@ -134,7 +137,7 @@ int main(int argc, char* argv[]) {
                 "\n You chose to print receipt info with lowest total profit\n\n");
             BillP lowest = NULL;
             lowest=FindLowestProfitOfAll(&head);
-            printf("............%s\n", lowest->name);
+            //printf("............%s\n", lowest->name); TESTING
             PrintBill(lowest);
             system("pause");
             break;
@@ -146,8 +149,8 @@ int main(int argc, char* argv[]) {
                 "\n You chose to print receipt info with highest total profit\n\n");
             BillP highest = NULL;
             highest=FindHighestProfitOfAll(&head);
-            printf("............%s\n", highest->name);
-            //PrintBill(highest);
+            //printf("............%s\n", highest->name);    TESTING
+            PrintBill(highest);
             system("pause");
             break;
 

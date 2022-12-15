@@ -3,13 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <float.h>
 
 #define MAX_LINE (1024)
 
 int InitializeBill(BillP bill) {
     bill->date = NULL;
     bill->next = NULL;
-    bill->total = 0;
+    bill->total = 0.0f;
     memset(bill->name, 0, MAX_BILL_NAME);
     InitializeArticle(&bill->articleHead);
 
@@ -170,7 +171,7 @@ int DeleteAllBills(BillP head) {
     return EXIT_SUCCESS;
 }
 
-int CalculateTotalBill(BillP bill)
+float CalculateTotalBill(BillP bill)
 {
     ArticleP article = NULL;
     bill->total = 0;
@@ -180,7 +181,6 @@ int CalculateTotalBill(BillP bill)
         {
             bill->total += (float)article->price * article->count;
         }
-       // print("%f", sumPrice);
     return bill->total;
 }
 
@@ -188,8 +188,8 @@ BillP FindLowestProfitOfAll(BillP head) {
     
     head = head->next;
     BillP lowest = head;
-    int min = INT_MAX;
-    int total = 0;
+    float min = FLT_MAX;
+    float total = 0.0f;
 
     for (; head->next != NULL; head = head->next) {
         total=CalculateTotalBill(head);
@@ -198,7 +198,7 @@ BillP FindLowestProfitOfAll(BillP head) {
             lowest = head;
         }
     }
-    printf("%d", lowest->total);
+    printf("\nThe lowest profit of all bills is:\t%f\n", lowest->total);
 
     return lowest;
 }
@@ -207,8 +207,8 @@ BillP FindHighestProfitOfAll(BillP head) {
 
     head = head->next;
     BillP highest = NULL;
-    int max = INT_MIN;
-    int total = 0;
+    float max = FLT_MIN;
+    float total = 0;
 
     for (; head->next != NULL; head = head->next) {
         total = CalculateTotalBill(head);
@@ -217,7 +217,18 @@ BillP FindHighestProfitOfAll(BillP head) {
             highest = head;
         }
     }
-    printf("%d", highest->total);
+    printf("\nThe highest profit of all bills is:\t%f\n", highest->total);
 
     return highest;
 }
+
+int PrintNameOfAllBills(BillP head) {
+
+    BillP bill = NULL;
+    for (bill = head->next; bill != NULL; bill = bill->next)
+        printf(" \t%s\n\n", bill->name);
+
+    return EXIT_SUCCESS;
+
+}
+
