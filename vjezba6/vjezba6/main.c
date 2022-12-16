@@ -70,8 +70,15 @@ int main(int argc, char* argv[]) {
         case 0:
             printf("====================================================================\n");
             printf("0");
+
+
+            printf(
+                "\n\nPress enter to continue app execution.\n"
+                "====================================================================\n");
             system("pause");
             break;
+
+
 
         case 1:
             // Kike
@@ -79,40 +86,87 @@ int main(int argc, char* argv[]) {
                 "====================================================================\n"
                 " You chose to add new receipt.\n\n"
                 " Please enter date of receipt creation"
-                " in valid format: <year>-<month>-<day>: ");
+                "\n in valid format: <year>-<month>-<day>: ");
             scanf(" %s", enterString);
             printf(
-                "====================================================================\n");
+                "\n====================================================================\n");
 //*********************************************
 
 //*********************************************
             printf(
-                "\n New receipt is successfully added to the list!\n\n"
-                " Press enter to continue app execution.\n"
-                "=================================================================\n");
+                "\n New receipt is successfully added to the list!"
+                "\n\n Press enter to continue app execution.\n"
+                "====================================================================\n");
             system("pause");
             break;
+
+
+
 
         case 2:
             // Kike
-            printf("====================================================================\n");
+            printf(
+                "====================================================================\n"
+                " You chose to delete certain existing receipt.");
+
+
             printf("2");
+
+
+
+            printf(
+                "\n Certain existing receipt is successfully deleted from the list!"
+                "\n\n Press enter to continue app execution.\n"
+                "====================================================================\n");
             system("pause");
             break;
+
+
+
 
         case 3:
             // Kike
-            printf("====================================================================\n");
+            printf(
+                "====================================================================\n"
+                " You chose to print all existing receipts info.\n\n");
+
+
             printf("3");
+
+
+
+            printf(
+                "\n All existing receipts info are successfully printed!"
+                "\n\n Press enter to continue app execution.\n"
+                "====================================================================\n");
             system("pause");
             break;
 
+
+
+
+
         case 4:
             // Kike
-            printf("====================================================================\n");
+            printf(
+                "====================================================================\n"
+                " You chose to modify data for certain existing receipt.\n\n");
+
+
             printf("4");
+            
+            
+            printf(
+                "\n All data modifications for certain existing receipt are saved"
+                "\n and receipt info is updated!"
+                "\n\n Press enter to continue app execution.\n"
+                "====================================================================\n");
             system("pause");
-            break;
+
+
+
+
+
 
         case 5:
             // Iva
@@ -243,7 +297,7 @@ int PrintMenu()
         "====================================================================\n\n"
         "\t1  -  Add new receipt\n"
         "\t2  -  Delete certain existing receipt\n"
-        "\t3  -  Print existing receipts info\n"
+        "\t3  -  Print all existing receipts info\n"
         "\t4  -  Modify data for certain existing receipt\n"
         "\t5  -  Print name list of existing receipts\n"
         "\t6  -  Print all receipts that contain certain product\n"
