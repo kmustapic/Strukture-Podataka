@@ -1,9 +1,0 @@
-# depslib dependency file v1.0
-1639922546 source:c:\users\korisnik\desktop\datastructures\task7\main.c
-	<stdio.h>
-	<stdlib.h>
-	"header.h"
-
-1639922943 c:\users\korisnik\desktop\datastructures\task7\header.h
-	<stdio.h>
-
