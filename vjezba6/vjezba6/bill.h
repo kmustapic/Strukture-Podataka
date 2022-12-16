@@ -17,7 +17,7 @@ typedef struct _bill {
 } Bill;
 
 int InitializeBill(BillP bill);
-BillP CreateBill(char* billFileName);
+BillP CreateBillFromFile(char* billFileName);
 int InsertBillAfter(BillP position, BillP bill);
 int InsertBillSorted(BillP head, BillP bill);
 int ReadBillsFromFile(BillP head, char* fileName);
@@ -29,7 +29,11 @@ int DeleteAllBills(BillP head);
 float CalculateTotalBill(BillP bill);
 BillP FindLowestProfitOfAll(BillP head);
 BillP FindHighestProfitOfAll(BillP head);
-int PrintNameOfAllBills(BillP head);
+int PrintNamesOfAllBills(BillP head);
 int FindBillsContainingCertainArticle(BillP head, char* articleName);
+int CheckIfBillExist(BillP head, char* enterString);
+
+BillP CreateBillFromInput(char* billFileName, DateP date);
+int DeleteBillAfter(BillP head, char* billName);
 
 #endif

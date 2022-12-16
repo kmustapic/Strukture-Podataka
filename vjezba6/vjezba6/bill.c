@@ -17,7 +17,7 @@ int InitializeBill(BillP bill) {
     return EXIT_SUCCESS;
 }
 
-BillP CreateBill(char* billFileName) {
+BillP CreateBillFromFile(char* billFileName) {
     FILE* fp = NULL;
     BillP bill = NULL;
     int status = EXIT_SUCCESS;
@@ -103,7 +103,7 @@ int ReadBillsFromFile(BillP head, char* fileName) {
         if (strlen(fileLine) == 0)
             continue;
 
-        bill = CreateBill(fileLine);
+        bill = CreateBillFromFile(fileLine);
         if (!bill) {
             fclose(fp);
             DeleteAllBills(head);
@@ -222,14 +222,16 @@ BillP FindHighestProfitOfAll(BillP head) {
     return highest;
 }
 
-int PrintNameOfAllBills(BillP head) {
+int PrintNamesOfAllBills(BillP head) {
 
     BillP bill = NULL;
+    printf("\t-------------------------\n");
     for (bill = head->next; bill != NULL; bill = bill->next)
-        printf(" \t%s\n\n", bill->name);
+        printf(
+            " \t|\t%s\t|\n"
+            "\t-------------------------\n", bill->name);
 
     return EXIT_SUCCESS;
-
 }
 
 int FindBillsContainingCertainArticle(BillP head, char* articleName) {
@@ -257,3 +259,94 @@ int FindBillsContainingCertainArticle(BillP head, char* articleName) {
     return EXIT_SUCCESS;
 }
 
+//************************
+
+int CheckIfBillExist(BillP head, char* enterString)
+{    
+    for (head = head->next; head != NULL; head = head->next)
+        if (strcmp(head->name, enterString) == 0)
+            return EXIT_FAILURE;
+    return EXIT_SUCCESS;
+}
+
+BillP CreateBillFromInput(char* billFileName, DateP date) {
+    BillP bill = NULL;
+    int status = EXIT_SUCCESS;
+    char articleName[MAX_LINE] = { 0 };
+    int articleAmount = 0 ;
+    float articlePrice = 0.0f;
+    int choice = -1;
+
+    bill = (BillP)malloc(sizeof(Bill));
+    if (!bill) {
+        perror("Bill not allocated!\n");
+        return NULL;
+    }
+
+    InitializeBill(bill);
+    strcpy(bill->name, billFileName);
+    bill->date = date;
+    
+    printf(
+        "\n===================================================================="
+        "\n Add new products to receipt: %s"
+        "\n For adding new product enter: 1" 
+        "\n For stopping adding new products enter: 0\n"
+        "====================================================================\n", billFileName);
+    printf("\n Enter your choice: ");
+    scanf(" %d", &choice);
+
+    while (choice != 0) {
+
+        printf("\n Enter new article's name: ");
+        scanf(" %s", articleName);
+        printf(" Enter new article's quantity: ");
+        scanf(" %d", &articleAmount);
+        printf(" Enter new article's price: ");
+        scanf(" %f", &articlePrice);
+
+        ArticleP article = NULL;
+        article = CreateArticleFromInput(articleName, articleAmount, articlePrice);
+        if (!article) {
+            printf("Article not created!\n");
+            return NULL;
+        }
+
+/*        if (!article) {
+            DeleteBill(bill);
+            return NULL;
+        }
+*/      
+        InsertArticleSorted(&bill->articleHead, article);
+        printf("\n Enter your choice: ");
+        scanf(" %d", &choice);
+    }
+
+    return bill;
+}
+
+int DeleteBillAfter(BillP head, char* billName)
+{
+    int flag = 0;
+    BillP prev = NULL;
+    BillP current = NULL;
+
+    for (prev = head; prev->next != NULL; prev = prev->next)
+    {
+        if (strcmp(prev->next->name, billName) == 0)
+        {
+            flag++;
+            current = prev->next;
+            prev->next = prev->next->next;
+            free(current);
+            break;
+        }
+    }
+
+    if (flag == 0)
+        printf("\nBill with searched name doesn't exist in current bill list!\n");
+    else
+        printf("\nBill is succesfully deleted from bill list!\n");
+
+    return EXIT_SUCCESS;
+}

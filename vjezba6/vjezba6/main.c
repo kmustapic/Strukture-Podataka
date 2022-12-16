@@ -13,14 +13,18 @@ int PrintMenu();
 
 int main(int argc, char* argv[]) {
     Bill head;
+    char billName[MAX_LINE] = { 0 };
     char fileName[MAX_FILE_NAME] = { 0 };
-//*********************************************
     char enterString[MAX_LINE] = { 0 };
-//*********************************************
+    char productName[MAX_LINE];
+    int year = 0;
+    int month = 0;
+    int day = 0;
     int status = EXIT_SUCCESS;
     int choice = -1;
     int ch;
     char articleName[MAX_LINE] = { 0 };
+    DateP newDate = NULL;
 
     InitializeBill(&head);
 
@@ -31,7 +35,7 @@ int main(int argc, char* argv[]) {
                 "\t\tRECEIPT MANAGEMENT SYSTEM\n"
                 "====================================================================\n"
                 "\n    Please insert FILENAME of the file\n"
-                "    that contains name of all existing receipts: ");
+                "    that contains name of all existing receipt/s: ");
 
         scanf(" %s", fileName);
         printf("\n");
@@ -59,81 +63,184 @@ int main(int argc, char* argv[]) {
             "====================================================================\n"
             " File that contains names of all existing receipts: %s\n", fileName);
         PrintMenu();
-        printf("Choose an option from menu: ");
+        printf(" Choose an option from menu: ");
         scanf(" %d", &choice);
         do {
             ch = getchar();
         } while ((ch != EOF) && (ch != '\n'));
-
+        
         switch (choice) {
 
         case 0:
-            printf("====================================================================\n");
-            printf("0");
+            system("cls");
+            printf(
+                "====================================================================\n"
+                "\n\t\tYou have exited the application!\t\n\n"
+                "====================================================================\n");
             system("pause");
             break;
 
         case 1:
             // Kike
+            status = EXIT_FAILURE;
             printf(
                 "====================================================================\n"
                 " You chose to add new receipt.\n\n"
-                " Please enter date of receipt creation"
-                " in valid format: <year>-<month>-<day>: ");
-            scanf(" %s", enterString);
-            printf(
-                "====================================================================\n");
-//*********************************************
+                " This is current list of existing receipt/s:\n\n");
+            PrintNamesOfAllBills(&head);
 
-//*********************************************
+            while (status == EXIT_FAILURE) {
+                printf("\n Please enter new receipt's name (that doesn't exist already!): ");
+                scanf("%s", enterString);
+                status = CheckIfBillExist(&head, enterString);
+            }
+            printf("\n Date: ");
+            scanf("%d %d %d", &year, &month, &day);
+// date string input needs to be checked with sscanf, 
+// and to check existing limits, e.g. month can only be value [1,12], ...
+// currently hardcoded lets pretend that input will be valid 
+ //attempt of realizing valid date input checker      
+/*
+            scanf("%d%d%d", &year, &month, &day);
             printf(
-                "\n New receipt is successfully added to the list!\n\n"
-                " Press enter to continue app execution.\n"
-                "=================================================================\n");
+                "\n You entered new receipt's name: %s\n\n"
+                " Please enter new date"
+                "\n in valid format <year>-<month>-<day> "
+                "\n  EXAMPLE: 1992-01-03"
+                "\n New date: ");
+                scanf("%s", enterString);
+                status = sscanf(enterString,"%d-%d-%d", &year,&month, &day);
+*/
+// newDate = CreateDateFromString(enterString);
+// input params are different, new func needed
+            newDate = CreateDateFromNumbers(year, month, day);
+            BillP newBill = NULL;
+            newBill = CreateBillFromInput(enterString, newDate);
+            InsertBillSorted(&head, newBill);
+
+// to be fixed
+//    " Please enter required info for new receipt creation"
+//    "\n in valid format: <year>-<month>-<day>: ");
+//scanf(" %s", enterString);
+//newDate = CreateDateFromString(enterString);
+            printf(
+                "\n====================================================================\n"
+                "\n New receipt is successfully added to the list!"
+                "\n Press enter to continue app execution.\n\n"
+                "====================================================================\n");
             system("pause");
             break;
 
         case 2:
             // Kike
-            printf("====================================================================\n");
-            printf("2");
+            printf(
+                "====================================================================\n"
+                " You chose to delete certain existing receipt.\n");
+// need to do string validation, not to enter an empty string
+// ignore for now
+            printf("\nEnter name of the bill you want to delete: ");
+            status = 0;
+            scanf("%s", billName);
+            status = CheckIfBillExist(&head, billName);
+            DeleteBillAfter(&head, billName);
+            printf(
+                    "\n Press enter to continue app execution.\n\n\n"
+                    "====================================================================\n");
             system("pause");
             break;
+// needs to be improved and put inside a loop
+// or give an option to user to go bac to main menu 
+// and create a new choice
+            
 
         case 3:
             // Kike
-            printf("====================================================================\n");
-            printf("3");
+            printf(
+                "===================================================================="
+                " You chose to print all existing receipts info.\n\n");
+            PrintAllBills(&head);
+            printf(
+                "\n\n====================================================================\n"
+                "\n All existing receipts info are successfully printed!"
+                "\n Press enter to continue app execution.\n\n"
+                "====================================================================\n");
             system("pause");
             break;
 
         case 4:
             // Kike
-            printf("====================================================================\n");
+            printf(
+                "===================================================================="
+                " You chose to modify data for certain existing receipt.\n\n");
+
+            /*
+            *   Conceptually explained:
+            *   Data we can change are articles.
+            *   currently not that important to ralize date of bill creation
+            *   we have to implement logic for
+            * 
+            *   ADDING new item
+            *       a) item doesn't exist, read all data, write new line in file for certain bill
+            *       b) item already exist , need only to change it's existing quantity
+                       1 only chane one info, not writing a new line in file
+
+                REMOVING existing data
+                    a) item doesn't exist, error message to user
+                    b) item exist, we can move all existing data for that item, meaning removing
+                       certain line in certain bill's file
+                    c) we remove less items then they currently exist, meaning only
+                       changing info number for quantity, not removing a line for that certain item 
+         
+            */
+
             printf("4");
+            
+            
+            printf(
+                "\n====================================================================\n"
+                "\n All data modifications for certain existing receipt are saved"
+                "\n and receipt info is updated!"
+                "\n Press enter to continue app execution.\n\n"
+                "====================================================================\n");
             system("pause");
-            break;
+
 
         case 5:
             // Iva
             printf(
                 "====================================================================\n"
-                "\n You chose to print name list of existing receipts\n\n");
-            PrintNameOfAllBills(&head);
+                "\n You chose to print name list of existing receipt/s.\n\n");
+
+            PrintNamesOfAllBills(&head);
+            printf(
+                "\n====================================================================\n"
+                "\n List of existing receipt/s is successfully printed!"
+                "\n Press enter to continue app execution.\n\n"
+                "====================================================================\n");
             system("pause");
             break;
+
+
+
+
+
 
         case 6:
             // Iva
             printf(
                 "====================================================================\n"
                 "\n You chose to print all receipts that contain certain product\n\n");
+
             printf("Please insert the name of the article you want to search in the bills:");
             scanf("%s", articleName);
             FindBillsContainingCertainArticle(&head,articleName);
             printf("====================================");
             system("pause");
             break;
+
+
+
+
 
         case 7:
             // Iva
@@ -243,7 +350,7 @@ int PrintMenu()
         "====================================================================\n\n"
         "\t1  -  Add new receipt\n"
         "\t2  -  Delete certain existing receipt\n"
-        "\t3  -  Print existing receipts info\n"
+        "\t3  -  Print all existing receipts info\n"
         "\t4  -  Modify data for certain existing receipt\n"
         "\t5  -  Print name list of existing receipts\n"
         "\t6  -  Print all receipts that contain certain product\n"
@@ -290,4 +397,5 @@ int PrintMenu()
 
         for distinguishing authority e.g. : customer -> 1 and admin -> 2 
     _____________________________________________________________________________
+    * https://stackoverflow.com/questions/65928723/exception-thrown-read-access-violation-it-was-0xfdfdfdfd
 */

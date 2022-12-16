@@ -23,4 +23,6 @@ int DeleteAllArticles(ArticleP head);
 int InsertArticleAfter(ArticleP position, ArticleP article);
 int InsertArticleSorted(ArticleP head, ArticleP article);
 
+ArticleP CreateArticleFromInput(char* articleName, int articleAmount, float price);
+
 #endif

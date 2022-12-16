@@ -114,3 +114,22 @@ int InsertArticleSorted(ArticleP head, ArticleP article) {
 
     return EXIT_SUCCESS;
 }
+
+//************************
+ArticleP CreateArticleFromInput(char* articleName, int articleAmount, float price) {
+    ArticleP article = NULL;
+    int status = 0;
+
+    article = (ArticleP)malloc(sizeof(Article));
+    if (!article) {
+        perror("Article allocation failed!\n");
+        return NULL;
+    }
+    InitializeArticle(article);
+    strcpy(article->name, articleName);
+    article->count = articleAmount;
+    article->price = price;
+
+    return article;
+}
+
