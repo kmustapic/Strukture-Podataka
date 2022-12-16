@@ -24,4 +24,6 @@ int PrintDate(DateP date);
 int Datecmp(DateP date1, DateP date2);
 bool IsDateInsideOfRange(DateP date, DateP from, DateP to);
 
+DateP CreateDateFromNumbers(int year, int month, int day);
+
 #endif

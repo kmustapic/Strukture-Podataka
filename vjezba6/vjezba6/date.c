@@ -72,3 +72,21 @@ int Datecmp(DateP date1, DateP date2) {
 bool IsDateInsideOfRange(DateP date, DateP from, DateP to) {
     return Datecmp(date, from) >= 0 && Datecmp(date, to) <= 0;
 }
+
+//***********************
+
+DateP CreateDateFromNumbers(int year, int month, int day) {
+    DateP date = NULL;
+
+    date = (DateP)malloc(sizeof(Date));
+    if (!date) {
+        perror("Date allocation failed!\n");
+        return NULL;
+    }
+    date->year = year;
+    date->month = month;
+    date->day = day;
+
+    return date;
+}
+
