@@ -34,5 +34,6 @@ int FindBillsContainingCertainArticle(BillP head, char* articleName);
 int CheckIfBillExist(BillP head, char* enterString);
 
 BillP CreateBillFromInput(char* billFileName, DateP date);
+int DeleteBillAfter(BillP head, char* billName);
 
 #endif

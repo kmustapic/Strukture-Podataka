@@ -259,6 +259,8 @@ int FindBillsContainingCertainArticle(BillP head, char* articleName) {
     return EXIT_SUCCESS;
 }
 
+//************************
+
 int CheckIfBillExist(BillP head, char* enterString)
 {    
     for (head = head->next; head != NULL; head = head->next)
@@ -267,7 +269,6 @@ int CheckIfBillExist(BillP head, char* enterString)
     return EXIT_SUCCESS;
 }
 
-//************************
 BillP CreateBillFromInput(char* billFileName, DateP date) {
     BillP bill = NULL;
     int status = EXIT_SUCCESS;
@@ -322,4 +323,30 @@ BillP CreateBillFromInput(char* billFileName, DateP date) {
     }
 
     return bill;
+}
+
+int DeleteBillAfter(BillP head, char* billName)
+{
+    int flag = 0;
+    BillP prev = NULL;
+    BillP current = NULL;
+
+    for (prev = head; prev->next != NULL; prev = prev->next)
+    {
+        if (strcmp(prev->next->name, billName) == 0)
+        {
+            flag++;
+            current = prev->next;
+            prev->next = prev->next->next;
+            free(current);
+            break;
+        }
+    }
+
+    if (flag == 0)
+        printf("\nBill with searched name doesn't exist in current bill list!\n");
+    else
+        printf("\nBill is succesfully deleted from bill list!\n");
+
+    return EXIT_SUCCESS;
 }

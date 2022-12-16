@@ -13,6 +13,7 @@ int PrintMenu();
 
 int main(int argc, char* argv[]) {
     Bill head;
+    char billName[MAX_LINE] = { 0 };
     char fileName[MAX_FILE_NAME] = { 0 };
     char enterString[MAX_LINE] = { 0 };
     char productName[MAX_LINE];
@@ -130,54 +131,41 @@ int main(int argc, char* argv[]) {
             system("pause");
             break;
 
-
-
-
-
         case 2:
             // Kike
             printf(
                 "====================================================================\n"
-                " You chose to delete certain existing receipt.");
-
-
-            printf("2");
-
-
-
+                " You chose to delete certain existing receipt.\n");
+// need to do string validation, not to enter an empty string
+// ignore for now
+            printf("\nEnter name of the bill you want to delete: ");
+            status = 0;
+            scanf("%s", billName);
+            status = CheckIfBillExist(&head, billName);
+            DeleteBillAfter(&head, billName);
             printf(
-                "\n====================================================================\n"
-                "\n Certain existing receipt is successfully deleted from the list!"
-                "\n Press enter to continue app execution.\n\n\n"
-                "====================================================================\n");
+                    "\n Press enter to continue app execution.\n\n\n"
+                    "====================================================================\n");
             system("pause");
             break;
-
-
-
+// needs to be improved and put inside a loop
+// or give an option to user to go bac to main menu 
+// and create a new choice
+            
 
         case 3:
             // Kike
             printf(
                 "===================================================================="
                 " You chose to print all existing receipts info.\n\n");
-
-
-            printf("3");
-
-
-
+            PrintAllBills(&head);
             printf(
-                "\n====================================================================\n"
+                "\n\n====================================================================\n"
                 "\n All existing receipts info are successfully printed!"
                 "\n Press enter to continue app execution.\n\n"
                 "====================================================================\n");
             system("pause");
             break;
-
-
-
-
 
         case 4:
             // Kike
@@ -185,6 +173,25 @@ int main(int argc, char* argv[]) {
                 "===================================================================="
                 " You chose to modify data for certain existing receipt.\n\n");
 
+            /*
+            *   Conceptually explained:
+            *   Data we can change are articles.
+            *   currently not that important to ralize date of bill creation
+            *   we have to implement logic for
+            * 
+            *   ADDING new item
+            *       a) item doesn't exist, read all data, write new line in file for certain bill
+            *       b) item already exist , need only to change it's existing quantity
+                       1 only chane one info, not writing a new line in file
+
+                REMOVING existing data
+                    a) item doesn't exist, error message to user
+                    b) item exist, we can move all existing data for that item, meaning removing
+                       certain line in certain bill's file
+                    c) we remove less items then they currently exist, meaning only
+                       changing info number for quantity, not removing a line for that certain item 
+         
+            */
 
             printf("4");
             
@@ -196,10 +203,6 @@ int main(int argc, char* argv[]) {
                 "\n Press enter to continue app execution.\n\n"
                 "====================================================================\n");
             system("pause");
-
-
-
-
 
 
         case 5:

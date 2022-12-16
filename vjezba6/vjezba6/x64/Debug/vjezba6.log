@@ -1,3 +1,5 @@
 ﻿  bill.c
-C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba6\vjezba6\bill.c(154): warning C4715: 'DeleteBill': not all control paths return a value
-  vjezba6.vcxproj -> C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba6\x64\Debug\vjezba6.exe
+C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba6\vjezba6\bill.h(37,48): warning C4031: second formal parameter list longer than the first list
+C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba6\vjezba6\bill.c(156,37): warning C4029: declared formal parameter list different from definition
+C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba6\vjezba6\bill.c(328,5): error C2084: function 'int DeleteBillAfter(BillP)' already has a body
+C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba6\vjezba6\bill.c(156): message : see previous definition of 'DeleteBillAfter'
