@@ -30,6 +30,6 @@ float CalculateTotalBill(BillP bill);
 BillP FindLowestProfitOfAll(BillP head);
 BillP FindHighestProfitOfAll(BillP head);
 int PrintNameOfAllBills(BillP head);
-int FindBillsContainingCertainArticle(BillP head, ArticleP article);
+int FindBillsContainingCertainArticle(BillP head, char* articleName);
 
 #endif

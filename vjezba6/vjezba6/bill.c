@@ -232,3 +232,28 @@ int PrintNameOfAllBills(BillP head) {
 
 }
 
+int FindBillsContainingCertainArticle(BillP head, char* articleName) {
+
+    BillP theOne = NULL;
+    head = head->next;
+    ArticleP article = NULL;
+
+    while (head != NULL) {
+        article = &head->articleHead;
+        article = article->next;
+            for (; article != NULL; article = article->next) {
+                if (strcmp(article->name, articleName) == 0) {
+                    theOne = head;
+                    printf("%s\n", head->name);;
+                    //PrintBill(theOne);
+                }
+            }
+            head = head->next;
+    }
+    if (theOne == NULL) {
+        printf("\nThe article you want to find doesn't exists in any of the bills\n");
+        return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
+}
+

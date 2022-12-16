@@ -20,6 +20,7 @@ int main(int argc, char* argv[]) {
     int status = EXIT_SUCCESS;
     int choice = -1;
     int ch;
+    char articleName[MAX_LINE] = { 0 };
 
     InitializeBill(&head);
 
@@ -126,7 +127,11 @@ int main(int argc, char* argv[]) {
             // Iva
             printf(
                 "====================================================================\n"
-                "\n You chose to print all receipts info that contain certain product\n\n");
+                "\n You chose to print all receipts that contain certain product\n\n");
+            printf("Please insert the name of the article you want to search in the bills:");
+            scanf("%s", articleName);
+            FindBillsContainingCertainArticle(&head,articleName);
+            printf("====================================");
             system("pause");
             break;
 
@@ -241,7 +246,7 @@ int PrintMenu()
         "\t3  -  Print existing receipts info\n"
         "\t4  -  Modify data for certain existing receipt\n"
         "\t5  -  Print name list of existing receipts\n"
-        "\t6  -  Print all receipts info that contain certain product\n"
+        "\t6  -  Print all receipts that contain certain product\n"
         "\t7  -  Print receipt info with lowest total profit\n"
         "\t8  -  Print receipt info with highest total profit\n"
         "\t0  -  Exit application\n"
