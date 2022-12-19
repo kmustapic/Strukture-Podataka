@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include<math.h>
 #define max_size (50)
 
 struct _node;
@@ -24,6 +25,9 @@ NodeP FindNode(NodeP root, int number);
 int PrintInorder(NodeP root);
 int PrintPreorder(NodeP root);
 int PrintPostorder(NodeP root);
+int FindHeight(NodeP root);
+int PrintLevel(NodeP root, int level_no);
+int LevelOrder(NodeP root);
 
 int main()
 {
@@ -114,8 +118,12 @@ int main()
             system("pause");
             break;
         case 7:
-            root = CreateEmptyNode(root);
-            x = 0;
+            system("cls");
+            printf(
+                "====================================================================\n"
+                "\n\t\tPrinting the tree LEVELORDER!\t\n\n"
+                "====================================================================\n");
+            LevelOrder(root);
             system("pause");
             break;
         default:
@@ -271,4 +279,49 @@ int PrintMeni()
     printf("\n\t\t\t6-Postorder ispis");
     printf("\n\t\t\t7-Level-order ispis");
     printf("\n=================================================================\n\n");
+}
+
+int FindHeight(NodeP root) {
+
+    if (!root)
+        return EXIT_FAILURE;
+    else {
+        int leftHeight = FindHeight(root->left);
+        int rightHeight = FindHeight(root->right);
+        if (leftHeight >= rightHeight)
+            return leftHeight + 1;
+        else
+            return rightHeight + 1;
+    }
+}
+
+int PrintLevel(NodeP root, int level_no) {
+   
+    if (!root)
+        return EXIT_FAILURE;
+    if (level_no == 0) {
+        printf("%d ", root->number);
+    }
+    else {
+        PrintLevel(root->left, level_no - 1);
+        PrintLevel(root->right, level_no - 1);
+    }
+    return EXIT_SUCCESS;
+}
+
+int LevelOrder(NodeP root) {
+    if (!root)
+        return EXIT_FAILURE;
+    int height = FindHeight(root);
+    for (int i=0; i<height; i++) {
+        printf("Level %d: ", i);
+        PrintLevel(root, i);
+        printf("\n");
+    }
+    printf("\n\n-----Complete Level Order :-----\n");
+    for (int i=0; i<height; i++) {
+        PrintLevel(root, i);
+    }
+    printf("\n");
+    return EXIT_SUCCESS;
 }
