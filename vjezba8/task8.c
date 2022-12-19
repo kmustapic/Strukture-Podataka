@@ -32,16 +32,21 @@ int main()
     NodeP root = NULL, current = NULL;
 
     root = CreateEmptyNode(root);
-    PrintMeni();
     while (x)
     {
+        PrintMeni();
         printf("Your input:");
         scanf(" %d", &choice);
 
         switch (choice)
         {
         case 1:
-            printf("Insert the number you want to insert in the tree:\n");
+            system("cls");
+            printf(
+                "====================================================================\n"
+                "\n\t\tYou have chosen to insert a number in the tree!\t\n\n"
+                "====================================================================\n");
+            printf("Enter the number you want to insert in the tree:\n");
             scanf("%d", &number);
             root = InsertNode(root, number);
             if (root == NULL)
@@ -49,6 +54,11 @@ int main()
             system("pause");
             break;
         case 2:
+            system("cls");
+            printf(
+                "====================================================================\n"
+                "\n\t\tYou have chosen to delete a number in the tree!\t\n\n"
+                "====================================================================\n");
             printf("Insert the number you want to delete:\n");
             scanf("%d", &number);
             current = DeleteNode(root, number);
@@ -59,6 +69,11 @@ int main()
             system("pause");
             break;
         case 3:
+            system("cls");
+            printf(
+                "====================================================================\n"
+                "\n\t\tYou have chosen to search a number in the tree!\t\n\n"
+                "====================================================================\n");
             printf("Insert the number you want to find:\n");
             scanf("%d", &number);
             current = FindNode(root, number);
@@ -69,16 +84,31 @@ int main()
             system("pause");
             break;
         case 4:
+            system("cls");
+            printf(
+                "====================================================================\n"
+                "\n\t\tPrinting the tree INORDER!\t\n\n"
+                "====================================================================\n");
             PrintInorder(root);
             printf("\n");
             system("pause");
             break;
         case 5:
+            system("cls");
+            printf(
+                "====================================================================\n"
+                "\n\t\tPrinting the tree PREORDER!\t\n\n"
+                "====================================================================\n");
             PrintPreorder(root);
             printf("\n");
             system("pause");
             break;
         case 6:
+            system("cls");
+            printf(
+                "====================================================================\n"
+                "\n\t\tPrinting the tree POSTORDER!\t\n\n"
+                "====================================================================\n");
             PrintPostorder(root);
             printf("\n");
             system("pause");
@@ -92,6 +122,7 @@ int main()
             printf("Wrong choice! Insert new choice:\n");
             break;
         }
+         system("cls");
     }
     return EXIT_SUCCESS;
 }
@@ -136,7 +167,7 @@ NodeP InsertNode(NodeP root, int number)
 int PrintInorder(NodeP root)
 {
     if (root == NULL)
-        return NULL;
+        return EXIT_FAILURE;
 
     PrintInorder(root->left);
     printf("%d\t", root->number);
@@ -148,7 +179,7 @@ int PrintInorder(NodeP root)
 int PrintPreorder(NodeP root)
 {
     if (root == NULL)
-        return NULL;
+        return EXIT_FAILURE;
     printf("%d\t", root->number);
     PrintPreorder(root->left);
     PrintPreorder(root->right);
@@ -159,7 +190,7 @@ int PrintPreorder(NodeP root)
 int PrintPostorder(NodeP root)
 {
     if (root == NULL)
-        return NULL;
+        return EXIT_FAILURE;
 
     PrintPostorder(root->left);
     PrintPostorder(root->right);
@@ -229,11 +260,11 @@ NodeP FindNode(NodeP root, int number)
 
 int PrintMeni()
 {
-    printf("=================================================================\n");
-    printf("\nChoose one of the operations:");
-    printf("\n\t\t\t1-Insert new node");
-    printf("\n\t\t\t2-Delete node");
-    printf("\n\t\t\t3-Find certain node in the tree");
+    printf("=================================================================");
+    printf("\nChoose one of the operations:\n");
+    printf("\n\t\t1-Insert new node");
+    printf("\n\t\t2-Delete node");
+    printf("\n\t\t3-Find certain node in the tree\n");
     printf("\n\t\tISPISI:");
     printf("\n\t\t\t4-Inorder ispis");
     printf("\n\t\t\t5-Preorder ispis");
