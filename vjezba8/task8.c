@@ -323,5 +323,6 @@ int LevelOrder(NodeP root) {
         PrintLevel(root, i);
     }
     printf("\n");
+    
     return EXIT_SUCCESS;
 }
