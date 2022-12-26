@@ -50,7 +50,7 @@ int main()
                 "====================================================================\n"
                 "\n\t\tYou have chosen to insert a number in the tree!\t\n\n"
                 "====================================================================\n");
-            printf("Enter the number you want to insert in the tree:\n");
+            printf("Enter the number you want to insert in the tree: ");
             scanf("%d", &number);
             root = InsertNode(root, number);
             if (root == NULL)
@@ -63,7 +63,7 @@ int main()
                 "====================================================================\n"
                 "\n\t\tYou have chosen to delete a number in the tree!\t\n\n"
                 "====================================================================\n");
-            printf("Insert the number you want to delete:\n");
+            printf("Insert the number you want to delete: ");
             scanf("%d", &number);
             current = DeleteNode(root, number);
             if (current == NULL)
@@ -78,7 +78,7 @@ int main()
                 "====================================================================\n"
                 "\n\t\tYou have chosen to search a number in the tree!\t\n\n"
                 "====================================================================\n");
-            printf("Insert the number you want to find:\n");
+            printf("Insert the number you want to find: ");
             scanf("%d", &number);
             current = FindNode(root, number);
             if (current == NULL)
@@ -117,6 +117,7 @@ int main()
             printf("\n");
             system("pause");
             break;
+
         case 7:
             system("cls");
             printf(
@@ -125,6 +126,10 @@ int main()
                 "====================================================================\n");
             LevelOrder(root);
             system("pause");
+            break;
+        case 8:
+            system("cls");
+            x=0;
             break;
         default:
             printf("Wrong choice! Insert new choice:\n");
@@ -278,6 +283,7 @@ int PrintMeni()
     printf("\n\t\t\t5-Preorder ispis");
     printf("\n\t\t\t6-Postorder ispis");
     printf("\n\t\t\t7-Level-order ispis");
+    printf("\n\t\t8-Exit the application");
     printf("\n=================================================================\n\n");
 }
 
@@ -310,6 +316,7 @@ int PrintLevel(NodeP root, int level_no) {
 }
 
 int LevelOrder(NodeP root) {
+    
     if (!root)
         return EXIT_FAILURE;
     int height = FindHeight(root);
