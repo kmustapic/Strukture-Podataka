@@ -1,5 +1,4 @@
 /*
-
 4. Napisati program za zbrajanje i mnozenje polinoma.
 Koeficijenti i eksponenti se citaju iz datoteke.
 Napomena: Eksponenti u datoteci nisu nuzno sortirani.
