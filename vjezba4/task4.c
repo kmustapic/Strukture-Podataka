@@ -68,7 +68,7 @@ int main()
         printf(" 2nd polynomial:");
         PrintList(p2);
         PrintMenu();
-        printf("Choose an option from menu: ");
+        printf(" Choose an option from menu: ");
         scanf(" %d", &choice);
 
         switch (choice)
@@ -77,7 +77,7 @@ int main()
             system("cls");
             printf(
                 "====================================================================\n"
-                "\nYou have exited the application!\n\n"
+                "\n You have exited the application!\n\n"
                 "====================================================================\n");
             DeallocateList(p1);
             DeallocateList(p2);
@@ -85,14 +85,14 @@ int main()
             DeallocateList(pProduct);
 
             if (p1->next == NULL)
-                printf("\nList for 1st polynomial is successfully deleted!\n");
+                printf("\n List for 1st polynomial is successfully deleted!\n");
             if (p2->next == NULL)
-                printf("List for 2nd polynomial is successfully deleted!\n");
+                printf(" List for 2nd polynomial is successfully deleted!\n");
             if (pSum->next == NULL)
-                printf("List for SUM polynomial is successfully deleted!\n");
+                printf(" List for SUM polynomial is successfully deleted!\n");
             if (pProduct->next == NULL)
                 printf(
-                    "List for PRODUCT polynomial is successfully deleted!\n\n"
+                    " List for PRODUCT polynomial is successfully deleted!\n\n"
                     "====================================================================\n");
             system("pause");
             break;
@@ -105,7 +105,7 @@ int main()
             AddPolynomials(p1, p2, pSum);
             PrintList(pSum);
             printf(
-                "\n\nPress enter to continue app execution.\n"
+                "\n\n Press enter to continue app execution.\n"
                 "====================================================================\n");
             system("pause");
             break;
@@ -118,7 +118,7 @@ int main()
             MultiplyPolynomials(p1, p2, pProduct);
             PrintList(pProduct);
             printf(
-                "\n\nPress enter to continue app execution.\n"
+                "\n\n Press enter to continue app execution.\n"
                 "====================================================================\n");
             system("pause");
             break;
@@ -131,6 +131,7 @@ int main()
                 "\n Press enter to continue app execution.\n"
                 "====================================================================\n");
             system("pause");
+            break;
         }
     }
 
@@ -157,7 +158,7 @@ int EnterValidString(char* string, char* variableName)
     while ((strcmp(string, "") == 0) || fopen(string, "r") == NULL)
     {
         printf(
-            "\n You entered an empty string or file with that name does npt exist yet!\n"
+            "\n You entered an empty string or file with that name does not exist yet!\n"
             " Please enter new %s: ", variableName);
         scanf(" %s", string);
         printf("\n");
@@ -203,11 +204,11 @@ int ReadFile(PolynomialP head1, PolynomialP head2, char* fileName)
         DeleteResultZero(head2);
 
         printf(" Polynomials are successfully added from the file: %s!\n"
-               "====================================================================\n", fileName);
+            "====================================================================\n", fileName);
 
         fclose(fp);
     }
-	
+
     return EXIT_SUCCESS;
 }
 
@@ -232,7 +233,7 @@ int ReadLine(PolynomialP head, char* buffer)
         }
         p += n;
     }
-	
+
     return EXIT_SUCCESS;
 }
 
@@ -420,3 +421,12 @@ int MultiplyPolynomials(PolynomialP head1, PolynomialP head2, PolynomialP headPr
 
     return EXIT_SUCCESS;
 }
+
+/*
+    FURTHER IMPROVEMENT:
+    _____________________________________________________________________________
+    * needs to limit and check user's input data type
+      e.g. if user enters a string instead of int value
+           app execution breaks, not working properly!
+    _____________________________________________________________________________
+*/
