@@ -1,0 +1,4 @@
+Sarajevo 280000
+Mostar 116169
+Tuzla 11000
+Bihac 56000
