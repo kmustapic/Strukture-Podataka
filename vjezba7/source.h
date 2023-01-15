@@ -2,27 +2,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #define BUFFER_LENGTH 1024
 
 struct _treeNode;
-typedef struct _treeNode *TreeNodeP;
-struct _stackNode;
-typedef struct _stackNode *StackNodeP;
-
+typedef struct _treeNode* TreeNodeP;
 typedef struct _treeNode
 {
-    char *directoryName;
+    char* directoryName;
     TreeNodeP child;
     TreeNodeP nextSibling;
 } TreeNode;
 
+struct _stackNode;
+typedef struct _stackNode* StackNodeP;
 typedef struct _stackNode
 {
     TreeNodeP treeNode;
     StackNodeP next;
 } StackNode;
 
+int PrintMenu();
 int CommandLine();
 TreeNodeP CreateNewTreeNode();
 StackNodeP CreateNewStackNode();
