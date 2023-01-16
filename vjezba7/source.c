@@ -46,7 +46,7 @@ int CommandLine()
     char* commandArgument = NULL;
     char* path = NULL;
 
-    if (AllocateBuffers(&path, &inputBuffer, &command, &commandArgument) == -1)
+    if (AllocateBuffers(&path, &inputBuffer, &command, &commandArgument) != EXIT_SUCCESS)
         return EXIT_FAILURE;
     SetDirectoryName(&rootDirectory, "C");
     strcpy(path, "C:\\");
@@ -65,7 +65,6 @@ int CommandLine()
         fgets(inputBuffer, BUFFER_LENGTH, stdin);
 
         numberOfArguments = sscanf(inputBuffer, " %s %s %n", command, commandArgument, &offset);
-
         if (strcmp(command, "md") == 0)
         {
             if (numberOfArguments == 1)
@@ -91,12 +90,20 @@ int CommandLine()
         }
 
         else if (strcmp(command, "cd..") == 0)
+        {
+            if (currentDirectory == &rootDirectory)
+                continue;
             ReturnToPreviousDirectory(&currentDirectory, &rootDirectory, path, &stack);
+        }
 
         else if (strcmp(command, "cd") == 0)
         {
             if (strcmp(commandArgument, "..") == 0)
+            {
+                if (currentDirectory == &rootDirectory)
+                    continue;
                 ReturnToPreviousDirectory(&currentDirectory, &rootDirectory, path, &stack);
+            }
 
             else if (numberOfArguments == 1)
                 printf("%s\n\n", path);
@@ -124,6 +131,7 @@ int CommandLine()
                 "\nAllocated memory is emptied!\n"
                 "\n====================================================================\n\n");
             system("pause");
+
             return EXIT_SUCCESS;
         }
 
@@ -141,9 +149,8 @@ int CommandLine()
 TreeNodeP CreateNewTreeNode()
 {
     TreeNodeP newNode = NULL;
-
     newNode = (TreeNodeP)malloc(sizeof(TreeNode));
-    if (newNode == NULL)
+    if (NULL == newNode)
     {
         printf("Tree node memory allocation failed!\n");
         system("pause");
@@ -151,7 +158,6 @@ TreeNodeP CreateNewTreeNode()
 
         return NULL;
     }
-
     newNode->child = NULL;
     newNode->nextSibling = NULL;
     newNode->directoryName = NULL;
@@ -162,9 +168,8 @@ TreeNodeP CreateNewTreeNode()
 StackNodeP CreateNewStackNode()
 {
     StackNodeP newNode = NULL;
-
     newNode = (StackNodeP)malloc(sizeof(StackNode));
-    if (newNode == NULL)
+    if (NULL == newNode)
     {
         printf("Stack node memory allocation failed!\n");
         system("pause");
@@ -172,7 +177,6 @@ StackNodeP CreateNewStackNode()
 
         return NULL;
     }
-
     newNode->treeNode = NULL;
     newNode->next = NULL;
 
@@ -182,7 +186,6 @@ StackNodeP CreateNewStackNode()
 int Push(StackNodeP stackHead, TreeNodeP treeNode)
 {
     StackNodeP nodeToPush = NULL;
-
     nodeToPush = CreateNewStackNode();
     if (NULL == nodeToPush)
         return EXIT_FAILURE;
@@ -197,7 +200,6 @@ int Push(StackNodeP stackHead, TreeNodeP treeNode)
 int Pop(StackNodeP stackHead, TreeNodeP* result)
 {
     StackNodeP nodeToFree = NULL;
-
     if (NULL == stackHead->next)
         return EXIT_FAILURE;
 
@@ -222,7 +224,7 @@ int AllocateBuffers(char** path, char** inputBuffer, char** command, char** comm
 int SetDirectoryName(TreeNodeP directory, char* directoryName)
 {
     directory->directoryName = (char*)malloc((strlen(directoryName) + 1) * sizeof(char));
-    if (directory->directoryName == NULL)
+    if (NULL == directory->directoryName)
     {
         printf("Error in setting directory name!\n");
         system("pause");
@@ -239,7 +241,6 @@ int MakeNewDirectory(TreeNodeP currentDirectory, char* newDirectoryName)
 {
     TreeNodeP newDirectory = NULL;
     TreeNodeP* temp = NULL;
-
     if (FindDirectory(currentDirectory, newDirectoryName) != NULL)
     {
         printf("\nA subdirectory %s already exists!\n\n", newDirectoryName);
@@ -250,13 +251,13 @@ int MakeNewDirectory(TreeNodeP currentDirectory, char* newDirectoryName)
     }
 
     newDirectory = CreateNewTreeNode();
-    if (newDirectory == NULL)
+    if (NULL == newDirectory)
         return EXIT_FAILURE;
 
-    if (SetDirectoryName(newDirectory, newDirectoryName) == -1)
+    if (SetDirectoryName(newDirectory, newDirectoryName) == EXIT_FAILURE)
         return EXIT_FAILURE;
 
-    if (currentDirectory->child == NULL)
+    if (NULL == currentDirectory->child)
     {
         currentDirectory->child = newDirectory;
         return EXIT_SUCCESS;
@@ -275,7 +276,6 @@ int MakeNewDirectory(TreeNodeP currentDirectory, char* newDirectoryName)
 TreeNodeP FindDirectory(TreeNodeP currentDirectory, char* directoryName)
 {
     TreeNodeP temp = NULL;
-    //
     temp = currentDirectory->child;
     while (temp)
     {
@@ -295,7 +295,8 @@ int ReturnToPreviousDirectory(TreeNodeP* currentDirectory, TreeNodeP rootDirecto
     TreeNodeP newCurrentDirectory = NULL;
 
     Pop(stackHead, &dummy);
-    if (Pop(stackHead, &newCurrentDirectory) == -1) {
+    if (Pop(stackHead, &newCurrentDirectory) == EXIT_FAILURE)
+    {
         *currentDirectory = rootDirectory;
         strcpy(path, rootDirectory->directoryName);
         strcat(path, "\\");
@@ -312,9 +313,8 @@ int ReturnToPreviousDirectory(TreeNodeP* currentDirectory, TreeNodeP rootDirecto
 int ChangeDirectory(TreeNodeP* currentDirectory, char* directoryName, char* path, StackNodeP stackHead)
 {
     TreeNodeP temp = NULL;
-
     temp = FindDirectory(*currentDirectory, directoryName);
-    if (temp == NULL)
+    if (NULL == temp)
     {
         printf("\nThe system cannot find the path specified!\n\n");
         system("pause");
@@ -322,8 +322,7 @@ int ChangeDirectory(TreeNodeP* currentDirectory, char* directoryName, char* path
 
         return EXIT_FAILURE;
     }
-
-    if (Push(stackHead, temp) == -1)
+    if (Push(stackHead, temp) == EXIT_FAILURE)
         return EXIT_FAILURE;
 
     *currentDirectory = temp;
@@ -337,28 +336,29 @@ int ChangeDirectory(TreeNodeP* currentDirectory, char* directoryName, char* path
 
 int PrintDirectory(TreeNodeP currentDirectory)
 {
-    TreeNodeP temp = NULL;
+    char* directoryName = currentDirectory->directoryName;
+    currentDirectory = currentDirectory->child;
     int numDir = 0;
-    //
-    temp = currentDirectory->child;
-    if (temp == NULL)
+
+    if (NULL == currentDirectory)
     {
-        printf("\n\t\t0 Dir(s)\n\n");
-        return EXIT_SUCCESS;
+        printf("\n\t0 Dir(s)\n\n");
+        return EXIT_FAILURE;
     }
 
     printf("\n");
-    while (temp)
+    while (NULL != currentDirectory)
     {
-        printf("<DIR>          %s\n", temp->directoryName);
+        printf("\t<DIR>\t\t%s\n", currentDirectory->directoryName);
         numDir++;
-        temp = temp->nextSibling;
+        currentDirectory = currentDirectory->nextSibling;
     }
     printf(
-        "\t\t%d Dir(s)\n\n"
+        "\n\t%d Dir(s)\n\n"
         "=================================================================\n"
-        "List of all existing directories is successfully printed!\n"
-        "=================================================================\n", numDir);
+        "List of all existing directories"
+        "\nin directory '%s' is successfully printed!\n"
+        "=================================================================\n", numDir, directoryName);
     system("pause");
     printf("\nPress enter to continue app execution.\n");
 
@@ -377,7 +377,7 @@ int FreeBuffers(char* path, char* inputBuffer, char* command, char* commandArgum
 
 int FreeTree(TreeNodeP T)
 {
-    if (T == NULL)
+    if (NULL == T)
         return EXIT_SUCCESS;
 
     FreeTree(T->child);
@@ -390,7 +390,7 @@ int FreeTree(TreeNodeP T)
 
 int FreeStack(StackNodeP S)
 {
-    if (S == NULL)
+    if (NULL == S)
         return EXIT_SUCCESS;
 
     FreeStack(S->next);
