@@ -1,0 +1,15 @@
+﻿  city_list.c
+  city_tree.c
+C:\Users\Korisnik\Desktop\5 semestar\Strukture-Podataka\vjezba10_11\vjezba10_11\city_tree.c(67,9): warning C4033: 'ReadCitiesFromFile' must return a value
+  program.c
+C:\Users\Korisnik\Desktop\5 semestar\Strukture-Podataka\vjezba10_11\vjezba10_11\program.c(14,19): warning C4013: 'execute_task10a' undefined; assuming extern returning int
+C:\Users\Korisnik\Desktop\5 semestar\Strukture-Podataka\vjezba10_11\vjezba10_11\program.c(17,19): warning C4013: 'execute_task10b' undefined; assuming extern returning int
+  state_list.c
+C:\Users\Korisnik\Desktop\5 semestar\Strukture-Podataka\vjezba10_11\vjezba10_11\state_list.c(58,9): warning C4033: 'PrintListStates' must return a value
+  state_tree.c
+  task10a.c
+  task10b.c
+  Generating Code...
+C:\Users\Korisnik\Desktop\5 semestar\Strukture-Podataka\vjezba10_11\vjezba10_11\state_list.c(72): warning C4715: 'PrintListStates': not all control paths return a value
+C:\Users\Korisnik\Desktop\5 semestar\Strukture-Podataka\vjezba10_11\vjezba10_11\city_tree.c(85): warning C4715: 'ReadCitiesFromFile': not all control paths return a value
+  vjezba10_11.vcxproj -> C:\Users\Korisnik\Desktop\5 semestar\Strukture-Podataka\vjezba10_11\Debug\vjezba10_11.exe

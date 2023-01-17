@@ -1,0 +1,5 @@
+Madrid 3300000
+Barcelona 1600000
+Valencia 820000
+Sevilla 710000
+Malaga 570000

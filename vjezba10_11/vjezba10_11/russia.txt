@@ -1,0 +1,2 @@
+Moscow 20000000
+St.Petersburg 3000000
