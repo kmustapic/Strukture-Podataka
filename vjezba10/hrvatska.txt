@@ -1,4 +1,0 @@
-Split 35000
-Dubrovnik 10000
-Zagreb 1000000
-Rijeka 110000
