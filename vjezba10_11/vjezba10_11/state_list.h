@@ -17,3 +17,4 @@ int AddStateToList(StateListP head, char* stateName, char* citiesFileName);
 int PrintListStates(StateListP head);
 int ReadStatesListFile(StateListP head, char* fileName);
 StateListP FindCountry(StateListP head, char* countryName);
+int DeleteStateList(StateListP head);

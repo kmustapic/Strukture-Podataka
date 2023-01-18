@@ -3,14 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX_SIZE 101
-
-#define LINE_MAX (1024)
+#define MAX_SIZE (1024)
 
 int execute_task10a() {
 
     StateListP head = NULL;
-    char fileName[LINE_MAX] = { 0 };
+    char fileName[MAX_SIZE] = { 0 };
     char countryName[MAX_SIZE] = { 0 };
     StateListP foundCountry = NULL;
     int minValue;
@@ -42,9 +40,11 @@ int execute_task10a() {
     printf("Enter minimum population value in %s you want to check out:  ", countryName);
     scanf("%d", &minValue);
     printf("___________________________________________________________________\n");
-    printf("Cities in %s that havev population more than %d habitants: \n\n", countryName, minValue);
+    printf("Cities in %s that have population more than %d habitants: \n\n", countryName, minValue);
     FindCity(foundCountry->cityRoot, minValue);
     printf("\n___________________________________________________________________\n");
+
+    //DeleteStateList(head);
 
     return EXIT_SUCCESS;
 }

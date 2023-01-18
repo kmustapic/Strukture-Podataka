@@ -106,3 +106,15 @@ StateListP FindCountry(StateListP head, char* countryName) {
 
     return head;
 }
+
+int DeleteStateList(StateListP head) {
+    StateListP temp = NULL;
+    while (head->next != NULL)
+    {
+        temp = head->next;
+        head->next = head->next->next;
+        DeleteCityTree(temp->cityRoot);
+        free(temp);
+    }
+    return EXIT_SUCCESS;
+}

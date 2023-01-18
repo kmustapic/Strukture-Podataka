@@ -3,13 +3,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#define MAX_SIZE 101
+#define MAX_SIZE (1024)
 
 StateTreeP InitializeStateTree(StateTreeP root) {
 
 	root = (StateTreeP)malloc(sizeof(StateTree));
 	if (root == NULL) {
-		printf("Error in alocating tree structure.\n");
+		printf("Error in alocating tree structure for state!\n");
 		return NULL;
 	}
 	strcpy(root->stateName, "");
@@ -29,7 +29,7 @@ int ReadStatesTreeFile(StateTreeP root, char* fileName) {
 	fp = fopen(fileName, "r");
 	if (fp == NULL)
 	{
-		perror("File can't be opened!\n");
+		printf("File %s can't be opened!\n",fileName);
 		return EXIT_FAILURE;
 	}
 	while (!feof(fp))
@@ -83,4 +83,16 @@ StateTreeP FindState(StateTreeP root, char* stateName) {
 		return FindState(root->right, stateName);
 
 	return FindState(root->left, stateName);
+}
+
+int DeleteStateTree(StateTreeP root) {
+
+	while (root != NULL)
+	{
+		DeleteStateTree(root->left);
+		DeleteStateTree(root->right);
+		DeleteCityList(root->cityHead);
+		free(root);
+	}
+	return EXIT_SUCCESS;
 }

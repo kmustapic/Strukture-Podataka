@@ -16,3 +16,4 @@ int PrintCitiesList(CityListP head);
 CityListP ReadCitiesListFile(CityListP head, char* citiesFileName);
 int AddCitiesToList(CityListP head, char* cityName, int population);
 int FindCityInTree(CityListP head, int minValue);
+int DeleteCityList(CityListP head);

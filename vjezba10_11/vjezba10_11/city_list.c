@@ -101,3 +101,16 @@ int FindCityInTree(CityListP head, int minValue) {
 	}
 	return EXIT_SUCCESS;
 }
+
+int DeleteCityList(CityListP head) {
+	CityListP temp = NULL;
+	while (head->next != NULL)
+	{
+		temp = head->next;
+		head->next = temp->next;
+		free(temp);
+	}
+
+	return EXIT_SUCCESS;
+
+}

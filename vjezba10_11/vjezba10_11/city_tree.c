@@ -111,3 +111,14 @@ int FindCity(CityTreeP root, int minValue) {
 
     return EXIT_SUCCESS;
 }
+
+int DeleteCityTree(CityTreeP root) {
+
+    while (root != NULL)
+    {
+        DeleteCityTree(root->left);
+        DeleteCityTree(root->left);
+        free(root);
+    }
+    return EXIT_SUCCESS;
+}

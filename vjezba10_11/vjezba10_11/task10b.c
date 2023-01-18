@@ -3,15 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX_SIZE 101
-
-#define LINE_MAX (1024)
-
+#define MAX_SIZE (1024)
 
 int execute_task10b() {
 
     StateTreeP root = NULL;
-    char fileName[LINE_MAX] = { 0 };
+    char fileName[MAX_SIZE] = { 0 };
     char stateName[MAX_SIZE] = { 0 };
     StateTreeP foundState = NULL;
     int minValue;
@@ -50,6 +47,7 @@ int execute_task10b() {
     FindCityInTree(foundState->cityHead, minValue);
     printf("\n___________________________________________________________________\n");
 
+    //DeleteStateTree(root);
 
     return EXIT_SUCCESS;
 }
