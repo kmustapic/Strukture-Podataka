@@ -78,9 +78,9 @@ int ReadStatesListFile(StateListP head, char* fileName) {
     char citiesFileName[MAX_SIZE];
 
     fp = fopen(fileName, "r");
-    if (fp == NULL)
+    if (!fp)
     {
-        perror("File can't be opened!\n");
+        //perror("File can't be opened!\n");
         return EXIT_FAILURE;
     }
     while (!feof(fp)) {
@@ -113,7 +113,7 @@ int DeleteStateList(StateListP head) {
     {
         temp = head->next;
         head->next = head->next->next;
-        DeleteCityTree(temp->cityRoot);
+        temp->cityRoot=DeleteCityTree(temp->cityRoot);
         free(temp);
     }
     return EXIT_SUCCESS;

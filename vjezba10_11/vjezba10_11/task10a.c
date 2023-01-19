@@ -11,26 +11,36 @@ int execute_task10a() {
     char fileName[MAX_SIZE] = { 0 };
     char countryName[MAX_SIZE] = { 0 };
     StateListP foundCountry = NULL;
-    int minValue;
+    int minValue=0;
+    int status = 0;
 
     head = InitializeStateList(head);
 
     printf("\nEnter the name of the file where states are stored -> ");
     scanf(" %s", fileName);
 
-    ReadStatesListFile(head, fileName);
 
+    status=ReadStatesListFile(head, fileName);
+
+    if (status == EXIT_FAILURE) {
+
+        printf("The file with name %s doesn't exists!\nTry again :)\n",fileName);
+        printf("___________________________________________________________________\n");
+        printf("\nEnter the name of the file where states are stored -> ");
+        scanf("%s", fileName);
+        status = ReadStatesListFile(head, fileName);
+    }
+    
+    system("cls");
     PrintListStates(head);
 
     printf("___________________________________________________________________\n");
     printf("Enter country name that you want to search: ");
     scanf("%s", countryName);
     foundCountry = FindCountry(head, countryName);
-    while (foundCountry == NULL)
+    if(foundCountry == NULL)
     {
         printf("That country doesn't exist in the list yet!\nTry again :)\n");
-        system("cls");
-        PrintListStates(head);
         printf("___________________________________________________________________\n");
         printf("Enter country name that you want to search: ");
         scanf("%s", countryName);
@@ -44,7 +54,7 @@ int execute_task10a() {
     FindCity(foundCountry->cityRoot, minValue);
     printf("\n___________________________________________________________________\n");
 
-    //DeleteStateList(head);
+    DeleteStateList(head);
 
     return EXIT_SUCCESS;
 }

@@ -29,7 +29,7 @@ int ReadStatesTreeFile(StateTreeP root, char* fileName) {
 	fp = fopen(fileName, "r");
 	if (fp == NULL)
 	{
-		printf("File %s can't be opened!\n",fileName);
+		//printf("File %s can't be opened!\n",fileName);
 		return EXIT_FAILURE;
 	}
 	while (!feof(fp))
@@ -87,12 +87,15 @@ StateTreeP FindState(StateTreeP root, char* stateName) {
 
 int DeleteStateTree(StateTreeP root) {
 
-	while (root != NULL)
+	if (!root)
 	{
-		DeleteStateTree(root->left);
-		DeleteStateTree(root->right);
-		DeleteCityList(root->cityHead);
-		free(root);
+		return EXIT_SUCCESS;
 	}
-	return EXIT_SUCCESS;
+
+	root->left = DeleteStateTree(root->left);
+	root->right = DeleteStateTree(root->right);
+	//DeleteCityList(root->cityHead);
+	free(root);
+
+	return NULL;
 }
