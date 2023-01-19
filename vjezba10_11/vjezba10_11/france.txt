@@ -1,4 +1,4 @@
-Pariz 2200000
+Paris 2200000
 Marseille 800000
 Lyon 480000
 Nice 340000
