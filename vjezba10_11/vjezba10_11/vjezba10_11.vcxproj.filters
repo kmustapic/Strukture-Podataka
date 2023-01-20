@@ -76,8 +76,5 @@
     <Text Include="russia.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="bosnia.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>

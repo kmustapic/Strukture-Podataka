@@ -15,4 +15,4 @@ int ReadStatesTreeFile(StateTreeP root, char* fileName);
 int PrintStatesTree(StateTreeP root);
 StateTreeP AddStateToTree(StateTreeP root, char* stateName, char* citiesFileName);
 StateTreeP FindState(StateTreeP root, char* stateName);
-int DeleteStateTree(StateTreeP root);
+StateTreeP DeleteStateTree(StateTreeP root);

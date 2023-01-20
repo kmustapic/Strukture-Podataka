@@ -26,7 +26,6 @@ int AddStateToList(StateListP head, char* stateName, char* citiesFileName) {
     StateListP newListEl = NULL;
     newListEl = InitializeStateList(newListEl);
     strcpy(newListEl->stateName, stateName);
-    newListEl->cityRoot = InitializeCityTree(newListEl->cityRoot);
 
     newListEl->cityRoot = ReadCitiesFromFile(newListEl->cityRoot, citiesFileName);
 

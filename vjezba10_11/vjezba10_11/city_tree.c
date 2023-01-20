@@ -87,10 +87,11 @@ CityTreeP ReadCitiesFromFile(CityTreeP root, char* citiesFileName)
 int PrintTreeCities(CityTreeP root)
 {
     if (root == NULL)
-        return 0;
-    PrintTreeCities(root->left);
-    printf("\t\t|__ %s\n", root->cityName);
+        return EXIT_SUCCESS;
+
     PrintTreeCities(root->right);
+    printf("\t\t|__ %s\t%d\n", root->cityName,root->population);
+    PrintTreeCities(root->left);
 
     return EXIT_SUCCESS;
 }

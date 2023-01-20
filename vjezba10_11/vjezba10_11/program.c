@@ -22,7 +22,8 @@ int main() {
 			break;
 		case 3:
 			//task11();
-			printf("\nTask 11 in progress... :)\n");
+			printf("\nTask 11 in progress... :)\n\n");
+			system("pause");
 			break;
 		case 4:
 			//system("cls");

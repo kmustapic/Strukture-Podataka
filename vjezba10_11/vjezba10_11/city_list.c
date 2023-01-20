@@ -21,7 +21,7 @@ CityListP InitializeCityList(CityListP head) {
 
 int PrintCitiesList(CityListP head) {
 
-	//head = head->next;
+	//head = head->next; ???????
 	if (head == NULL)
 	{
 		perror("List of cities is empty!\n");

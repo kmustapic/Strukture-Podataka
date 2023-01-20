@@ -39,11 +39,10 @@ int execute_task10b() {
     printf("Enter state name that you want to search: ");
     scanf("%s", stateName);
     foundState = FindState(root, stateName);
+
     while (foundState == NULL)
     {
         printf("That state doesn't exist in the list yet!\nTry again :)\n");
-        system("cls");
-        PrintStatesTree(root);
         printf("___________________________________________________________________\n");
         printf("Enter state name that you want to search: ");
         scanf("%s", stateName);
@@ -57,7 +56,7 @@ int execute_task10b() {
     FindCityInTree(foundState->cityHead, minValue);
     printf("\n___________________________________________________________________\n");
 
-    DeleteStateTree(root);
+    root=DeleteStateTree(root);
 
     return EXIT_SUCCESS;
 }

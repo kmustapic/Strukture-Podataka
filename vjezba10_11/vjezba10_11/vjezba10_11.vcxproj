@@ -156,7 +156,6 @@
     <ClCompile Include="task10b.c" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="bosnia.txt" />
     <Text Include="croatia.txt" />
     <Text Include="france.txt" />
     <Text Include="italy.txt" />

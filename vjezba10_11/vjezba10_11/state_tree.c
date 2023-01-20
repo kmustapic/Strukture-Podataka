@@ -48,7 +48,6 @@ StateTreeP AddStateToTree(StateTreeP root, char* stateName, char* citiesFileName
 	{
 		root = InitializeStateTree(root);
 		strcpy(root->stateName, stateName);
-		//root->cityHead = NULL;
 		root->cityHead = ReadCitiesListFile(root->cityHead, citiesFileName);
 	}
 	else if (strcmp(root->stateName, stateName) > 0)
@@ -85,7 +84,7 @@ StateTreeP FindState(StateTreeP root, char* stateName) {
 	return FindState(root->left, stateName);
 }
 
-int DeleteStateTree(StateTreeP root) {
+StateTreeP DeleteStateTree(StateTreeP root) {
 
 	if (!root)
 	{
