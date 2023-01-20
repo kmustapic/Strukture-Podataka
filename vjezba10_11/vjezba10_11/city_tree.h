@@ -17,4 +17,4 @@ CityTreeP AddCityToTree(CityTreeP root, char* cityName, int population);
 int PrintTreeCities(CityTreeP root);
 CityTreeP ReadCitiesFromFile(CityTreeP root, char* citiesFileName);
 int FindCity(CityTreeP root, int minValue);
-int DeleteCityTree(CityTreeP root);
+CityTreeP DeleteCityTree(CityTreeP root);

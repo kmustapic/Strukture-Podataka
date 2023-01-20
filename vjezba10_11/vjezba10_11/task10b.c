@@ -12,13 +12,23 @@ int execute_task10b() {
     char stateName[MAX_SIZE] = { 0 };
     StateTreeP foundState = NULL;
     int minValue;
+    int status = 0;
 
     root = InitializeStateTree(root);
 
     printf("\nEnter the name of the file where states are stored -> ");
     scanf(" %s", fileName);
 
-    ReadStatesTreeFile(root, fileName);
+    status=ReadStatesTreeFile(root, fileName);
+
+    if (status == EXIT_FAILURE) {
+
+        printf("The file with name %s doesn't exists!\nTry again :)\n", fileName);
+        printf("___________________________________________________________________\n");
+        printf("\nEnter the name of the file where states are stored -> ");
+        scanf("%s", fileName);
+        status = ReadStatesTreeFile(root, fileName);
+    }
 
     printf("___________________________________________________________________\n");
     printf("\t\tList of states\n");
@@ -47,7 +57,7 @@ int execute_task10b() {
     FindCityInTree(foundState->cityHead, minValue);
     printf("\n___________________________________________________________________\n");
 
-    //DeleteStateTree(root);
+    DeleteStateTree(root);
 
     return EXIT_SUCCESS;
 }
