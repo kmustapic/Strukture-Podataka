@@ -1,2 +1,2 @@
 Moscow 20000000
-St.Petersburg 3000000
+Novosibirsk 3000000
