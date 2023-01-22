@@ -3,8 +3,8 @@
 
 struct _cityTree;
 typedef struct _cityTree* CityTreeP;
-typedef struct _cityTree {
-
+typedef struct _cityTree 
+{
 	char cityName[MAX_CITY_NAME];
 	int population;
 	CityTreeP left;

@@ -4,8 +4,8 @@
 
 struct _stateList;
 typedef struct _stateList* StateListP;
-typedef struct _stateList {
-
+typedef struct _stateList 
+{
 	char stateName[MAX_STATE_NAME];
 	CityTreeP cityRoot;
 	StateListP next;

@@ -3,8 +3,8 @@
 
 struct _cityList;
 typedef struct _cityList* CityListP;
-typedef struct _cityList {
-
+typedef struct _cityList 
+{
 	char cityName[MAX_CITY_NAME];
 	int population;
 	CityListP next;
