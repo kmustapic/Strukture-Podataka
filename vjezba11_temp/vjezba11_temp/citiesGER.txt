@@ -1,0 +1,6 @@
+Frankfurt 648000
+Essen 588800
+Berlin 3275000
+Hamburg 1686100
+Bremen 527900
+Dortmund 587600
