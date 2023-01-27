@@ -1,0 +1,9 @@
+﻿  Task11.c
+  functions.c
+C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba11_temp\vjezba11_temp\functions.c(20,11): warning C4013: 'strcpy' undefined; assuming extern returning int
+C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba11_temp\vjezba11_temp\functions.c(44,19): warning C4013: 'strcmp' undefined; assuming extern returning int
+C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba11_temp\vjezba11_temp\functions.c(225,28): warning C4098: 'ExecuteTask11': 'void' function returning a value
+C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba11_temp\vjezba11_temp\functions.c(268,14): warning C4013: 'sleep' undefined; assuming extern returning int
+  Generating Code...
+functions.obj : error LNK2019: unresolved external symbol _sleep referenced in function _ExecuteTask11
+C:\Users\Korisnik\Desktop\Strukture-Podataka\vjezba11_temp\Debug\vjezba11_temp.exe : fatal error LNK1120: 1 unresolved externals
