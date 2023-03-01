@@ -141,6 +141,11 @@
   <ItemGroup>
     <ClCompile Include="Source.c" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="20.02.2023. - zadatak1.txt" />
+    <Text Include="gosti.txt" />
+    <Text Include="hoteli.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
