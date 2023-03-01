@@ -1,0 +1,77 @@
+STRUKTURE PODATAKA (120) - 2.ispitni rok - 20.02.2023. - grupa 1
+
+Napisati program koji cita datoteku koja sadrzi podatke o
+hotelima ("hoteli.txt") te kreirati vezanu listu hotela
+SORTIRANU PO DATUMU IZGRADNJE HOTELA. Uz datum izgradnje, u 
+datoteci se nalazi i naziv hotela te njegov godisnji prihod.
+
+
+Hotel je definiran strukturom:
+
+#define MAX_NAME_LEN (32)
+struct _hotel;
+typedef struct _hotel* HotelP;
+typedef struct _hotel {
+	char name[MAX_NAME_LEN];
+	DateP date;
+	int income;
+	HotelP next;
+} Hotel;
+
+
+Datum je definiran strukturom:
+
+struct _date;
+typedef struct _date;
+typedef struct _date* DateP;
+typedef struct _date {
+	int year;
+	int month;
+	int day;
+} Date;
+
+
+OCJENA 2:
+Ispisati vezanu listu hotela sortiranu po datumu
+izgradnje hotela. Izracunati srednju vrijednost godisnjih
+prihoda svih hotela pa modificirati vezanu listu hotela tako da 
+se hoteli, ciji je godisnji prihod manji od izracunate srednje 
+vrijednosti, prebace na kraj vezane liste.
+
+OCJENA 3:
+Iz datoteke "gosti.txt", treba procitati podatke o 
+gostima i hotelima u kojima su odsjeli. Svakog gosta treba
+smjestiti u dodatnu vezanu listu za pojedini hotel, tj. svaki
+hotel sadrzi dodatnu vezanu listu tako da prvo ide naziv
+hotela pa potom ime i prezime svih gostiju tog hotela.
+
+Gost je definiran strukturom:
+
+struct _guest;
+typedef struct _guest* GuestP;
+tyedef struct _guest {
+	char name[MAX_NAME_LEN];
+	char surname[MAX_NAME_LEN];
+	GuestP next;
+} Guest;
+
+
+OCJENA 4: 
+Pronaci hotel s najvecim brojem gostiju i pomaknuti 
+ga na pocetak vezane liste hotela. Potom ispisati vezanu listu
+hotela.
+
+OCJENA 5:
+Pronaci gosta koji je imao najvise nocenja u bilo 
+kojem hotelu.
+
+UVJET ZA BILO KOJU OCJENU:
+- Koristiti funkcije
+- Provjeriti uspjesnost diinamickih alokacija memorije (i
+  obaviti miran prekid programa u slucaju neuspjesne 
+  alokacije)
+- Provjeriti uspjesnost otvaranja datoteka ( i obaviti miran
+  prekid programa u slucaju neuspjesnog otvaranja)
+- Zatvoriti datoteke nakon rada s njima
+- Na kraju programa osloboditi svu dinamicki alociranu 
+  memoriju.
